@@ -1,10 +1,7 @@
 package ir.maktabsharif.model;
 
 import ir.maktabsharif.model.base.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = Course.TABLE_NAME)
 public class Course extends BaseEntity<Long> {
     public static final String TABLE_NAME = "courses";

@@ -1,0 +1,14 @@
+POST http://localhost:8080/student
+Content-Type: application/json
+
+{
+  "username" : "abdimilad",
+  "password" : "123456",
+  "firstName" :  "Milad",
+  "lastName" : "Abdi",
+  "email" :  "miladabdi1374@gmail.com",
+  "gender" : "male",
+  "role" :  "STUDENT"
+}
+
+###
