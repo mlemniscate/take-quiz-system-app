@@ -1,7 +1,8 @@
 package ir.maktabsharif.service;
 
 import ir.maktabsharif.model.Student;
+import ir.maktabsharif.model.enums.Status;
 
 public interface StudentService {
-    Student save(Student newStudent);
+    Status save(Student newStudent);
 }

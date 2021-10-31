@@ -28,7 +28,7 @@ public class User extends BaseEntity<Long> {
     public static final String GENDER = "gender";
     public static final String ROLE = "role";
 
-    @Column(name = USERNAME)
+    @Column(name = USERNAME, nullable = false, unique = true)
     private String username;
     @Column(name = PASSWORD)
     private String password;
@@ -36,11 +36,12 @@ public class User extends BaseEntity<Long> {
     private String firstName;
     @Column(name = LAST_NAME)
     private String lastName;
-    @Column(name = EMAIL)
+    @Column(name = EMAIL, nullable = false, unique = true)
     private String email;
     @Column(name = GENDER)
     private String gender;
     @Column(name = ROLE)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 
