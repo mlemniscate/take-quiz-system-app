@@ -18,7 +18,7 @@ public class TeacherController {
 
     @PostMapping("/teacher/sign-up")
     @CrossOrigin
-    SignUpStatus newEmployee(@RequestBody Teacher newTeacher) {
+    SignUpStatus newTeacher(@RequestBody Teacher newTeacher) {
         newTeacher.setRole(Role.TEACHER);
         return service.save(newTeacher);
     }

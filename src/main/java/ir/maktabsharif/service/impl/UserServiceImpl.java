@@ -1,5 +1,6 @@
 package ir.maktabsharif.service.impl;
 
+import ir.maktabsharif.controller.dto.FilterUserDTO;
 import ir.maktabsharif.controller.dto.LoginUserDTO;
 import ir.maktabsharif.model.User;
 import ir.maktabsharif.model.enums.LoginStatus;
@@ -9,6 +10,8 @@ import ir.maktabsharif.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    // when user login we send different login statuses based on situation
+    // when user login we send different login statuses based on loginUserDTO information
     @Override
     public LoginStatus login(LoginUserDTO loginUserDTO) {
         Optional<User> user = userRepository.findByUsername(loginUserDTO.getUsername());
@@ -28,5 +31,27 @@ public class UserServiceImpl implements UserService {
         if(user.get().getRole().equals(Role.STUDENT)) return LoginStatus.STUDENT;
         if(user.get().getRole().equals(Role.TEACHER)) return LoginStatus.TEACHER;
         else return null;
+    }
+
+    // return users based on filterUserDTO information and filter users
+    @Override
+    public List<User> findAllUsersByFilter(FilterUserDTO filterUserDTO) {
+        if(Objects.isNull(filterUserDTO.getRole())) {
+            return userRepository.
+                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
+                            filterUserDTO.getFirstName(),
+                            filterUserDTO.getLastName(),
+                            filterUserDTO.getGender(),
+                            Role.ADMIN
+                    );
+        } else {
+            return userRepository.
+                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRole(
+                            filterUserDTO.getFirstName(),
+                            filterUserDTO.getLastName(),
+                            filterUserDTO.getGender(),
+                            filterUserDTO.getRole()
+                    );
+        }
     }
 }
