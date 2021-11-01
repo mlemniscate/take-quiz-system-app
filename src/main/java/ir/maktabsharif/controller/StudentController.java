@@ -2,7 +2,7 @@ package ir.maktabsharif.controller;
 
 import ir.maktabsharif.model.Student;
 import ir.maktabsharif.model.enums.Role;
-import ir.maktabsharif.model.enums.Status;
+import ir.maktabsharif.model.enums.SignUpStatus;
 import ir.maktabsharif.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +18,7 @@ public class StudentController {
 
     @PostMapping("/student/sign-up")
     @CrossOrigin
-    Status newEmployee(@RequestBody Student newStudent) {
+    SignUpStatus newEmployee(@RequestBody Student newStudent) {
         newStudent.setRole(Role.STUDENT);
         return service.save(newStudent);
     }

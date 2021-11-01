@@ -1,8 +1,8 @@
 package ir.maktabsharif.service;
 
 import ir.maktabsharif.model.Teacher;
-import ir.maktabsharif.model.enums.Status;
+import ir.maktabsharif.model.enums.SignUpStatus;
 
 public interface TeacherService {
-    Status save(Teacher newTeacher);
+    SignUpStatus save(Teacher newTeacher);
 }

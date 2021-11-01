@@ -1,6 +1,6 @@
 package ir.maktabsharif.model.enums;
 
-public enum Status {
+public enum SignUpStatus {
     SUCCESS,
     USER_ALREADY_EXISTS,
     FAILURE

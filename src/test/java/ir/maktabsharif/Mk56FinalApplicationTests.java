@@ -24,7 +24,7 @@ class Mk56FinalApplicationTests {
 
 	@Test
 	void contextLoads() {
-		List<Student> m = studentRepository.findByFirstNameContaining("m");
+		List<Student> m = studentRepository.findByFirstNameContaining("");
 		m.forEach(System.out::println);
 	}
 

@@ -1,13 +1,22 @@
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "username": "abdimehran",
+  "password": "asdf"
+}
+
+###
 POST http://localhost:8080/student/sign-up
 Content-Type: application/json
 
 {
-  "username" : "abdimilad",
-  "password" : "123456",
-  "firstName" :  "میلاد",
-  "lastName" : "عبدی",
-  "email" :  "miladabdi1374@gmail.com",
-  "gender" : "male"
+  "username": "abdimilad",
+  "password": "123456",
+  "firstName": "میلاد",
+  "lastName": "عبدی",
+  "email": "miladabdi1374@gmail.com",
+  "gender": "male"
 }
 
 ###

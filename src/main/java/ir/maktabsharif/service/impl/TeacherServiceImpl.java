@@ -2,7 +2,7 @@ package ir.maktabsharif.service.impl;
 
 import ir.maktabsharif.model.Teacher;
 import ir.maktabsharif.model.User;
-import ir.maktabsharif.model.enums.Status;
+import ir.maktabsharif.model.enums.SignUpStatus;
 import ir.maktabsharif.repository.TeacherRepository;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.TeacherService;
@@ -21,11 +21,11 @@ public class TeacherServiceImpl implements TeacherService {
     // When we save teacher in teachers table we have to save it in users table too.
     // Return USER_ALREADY_EXISTS status if user exist with same username or email
     @Override
-    public Status save(Teacher newTeacher) {
+    public SignUpStatus save(Teacher newTeacher) {
         Optional<User> byUsername = userRepository.findByUsername(newTeacher.getUsername());
         Optional<User> byEmail = userRepository.findByEmail(newTeacher.getEmail());
-        if(byUsername.isPresent() || byEmail.isPresent()) return Status.USER_ALREADY_EXISTS;
+        if(byUsername.isPresent() || byEmail.isPresent()) return SignUpStatus.USER_ALREADY_EXISTS;
         teacherRepository.save(newTeacher);
-        return Status.SUCCESS;
+        return SignUpStatus.SUCCESS;
     }
 }

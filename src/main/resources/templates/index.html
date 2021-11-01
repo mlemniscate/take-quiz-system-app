@@ -38,8 +38,13 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#"
+                <a id="signUpItem" class="nav-link" href="#"
                   ><i class="fas fa-user-plus"></i> ثبت نام</a
+                >
+              </li>
+              <li class="nav-item">
+                <a id="loginItem" class="nav-link" href="#"
+                  ><i class="fas fa-sign-in-alt"></i> ورود</a
                 >
               </li>
             </ul>
@@ -47,8 +52,72 @@
         </div>
       </nav>
 
+      <!-- Alert -->
+      <div
+        id="userExistAlert"
+        class="alert alert-danger d-flex align-items-center d-none"
+        role="alert"
+        style="direction: rtl"
+      >
+        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+        <div>این کاربر از قبل وجود دارد!</div>
+      </div>
+
+      <!-- Alert Successful Sign Up -->
+      <div
+        id="userSignUpSuccessAlert"
+        class="alert alert-success d-none"
+        role="alert"
+        style="direction: rtl"
+      >
+        <h4 class="alert-heading">خوش آمدید!</h4>
+        <p>
+          <b>ثبت نام شما با موفقیت انجام شد.</b>وضعیت حساب شما "در انتظار تایید
+          است" و شما فعلا نمی توانید وارد حساب خود شوید. <br />
+          پس از تایید مدیر سایت شما می توانید وارد حساب خود شده و از امکانات
+          سایت بهره مند شوید.
+        </p>
+        <hr />
+        <p class="mb-0">با تشکر از صبر و شکیبایی شما.</p>
+      </div>
+
+      <!-- Alert is not active user -->
+      <div
+        id="userIsNotActiveAlert"
+        class="alert alert-danger d-flex align-items-center d-none"
+        role="alert"
+        style="direction: rtl"
+      >
+        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+        <div>
+          وضعیت شما "در انتظار تایید" می باشد. لطفا منتظر تایید مدیر باشید.
+        </div>
+      </div>
+
+      <!-- Alert wrong password -->
+      <div
+        id="userWrongPasswordAlert"
+        class="alert alert-danger d-flex align-items-center d-none"
+        role="alert"
+        style="direction: rtl"
+      >
+        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+        <div>رمز عبور اشتباه است!</div>
+      </div>
+
+      <!-- Alert wrong username -->
+      <div
+        id="userWrongUsernameAlert"
+        class="alert alert-danger d-flex align-items-center d-none"
+        role="alert"
+        style="direction: rtl"
+      >
+        <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+        <div>نام کاربری اشتباه است!</div>
+      </div>
+
       <!-- Sign Up Form -->
-      <div class="container">
+      <div id="signUpContainer" class="container">
         <div class="form bg-secondary rounded m-auto w-40 mt-5 p-4">
           <form id="signUpForm" style="direction: rtl">
             <!-- Username -->
@@ -163,6 +232,45 @@
               class="btn btn-primary"
             >
               ثبت نام
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginContainer" class="container d-none">
+        <div class="form bg-secondary rounded m-auto w-40 mt-5 p-4">
+          <form id="loginForm" style="direction: rtl">
+            <!-- Username -->
+            <div class="form-group">
+              <label class="my-2" for="usernameLogin">نام کاربری</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usernameLogin"
+                placeholder="نام کاربری خود را وارد کنید.."
+                required
+              />
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+              <label class="my-2" for="passwordLogin">کلمه عبور</label>
+              <input
+                type="password"
+                class="form-control"
+                id="passwordLogin"
+                placeholder="کلمه عبور خود را وارد کنید.."
+                required
+              />
+            </div>
+            <!-- Sign Up Button -->
+            <button
+              type="submit"
+              form="loginForm"
+              id="loginButton"
+              class="btn btn-primary my-3"
+            >
+              ورود
             </button>
           </form>
         </div>
