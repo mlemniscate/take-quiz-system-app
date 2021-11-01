@@ -2,10 +2,7 @@ package ir.maktabsharif.model;
 
 import ir.maktabsharif.model.base.BaseEntity;
 import ir.maktabsharif.model.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,6 +14,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = User.TABLE_NAME)
 public class User extends BaseEntity<Long> {
     public static final String TABLE_NAME = "users";
@@ -27,6 +25,7 @@ public class User extends BaseEntity<Long> {
     public static final String EMAIL = "email";
     public static final String GENDER = "gender";
     public static final String ROLE = "role";
+    public static final String IS_ACTIVE = "is_active";
 
     @Column(name = USERNAME, nullable = false, unique = true)
     private String username;
@@ -43,6 +42,8 @@ public class User extends BaseEntity<Long> {
     @Column(name = ROLE)
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(name = IS_ACTIVE)
+    private Boolean isActive = false;
 
 
 }
