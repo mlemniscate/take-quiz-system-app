@@ -25,7 +25,6 @@ public class TeacherServiceImpl implements TeacherService {
         Optional<User> byUsername = userRepository.findByUsername(newTeacher.getUsername());
         Optional<User> byEmail = userRepository.findByEmail(newTeacher.getEmail());
         if(byUsername.isPresent() || byEmail.isPresent()) return Status.USER_ALREADY_EXISTS;
-        userRepository.save((User) newTeacher);
         teacherRepository.save(newTeacher);
         return Status.SUCCESS;
     }

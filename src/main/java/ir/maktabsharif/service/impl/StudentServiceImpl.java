@@ -25,7 +25,6 @@ public class StudentServiceImpl implements StudentService {
         Optional<User> byUsername = userRepository.findByUsername(newStudent.getUsername());
         Optional<User> byEmail = userRepository.findByEmail(newStudent.getEmail());
         if(byUsername.isPresent() || byEmail.isPresent()) return Status.USER_ALREADY_EXISTS;
-        userRepository.save((User) newStudent);
         studentRepository.save(newStudent);
         return Status.SUCCESS;
     }
