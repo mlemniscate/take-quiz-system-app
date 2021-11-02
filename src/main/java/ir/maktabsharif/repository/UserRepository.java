@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             String gender,
             Role role
     );
-    List<User> findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(
+    List<User> findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNotAndIsActive(
             String firstName,
             String lastName,
             String gender,
@@ -29,5 +29,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             String gender,
             Role role
     );
+
+    List<User> findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(String firstName, String lastName, String gender, Role role, Boolean isActive);
 
 }

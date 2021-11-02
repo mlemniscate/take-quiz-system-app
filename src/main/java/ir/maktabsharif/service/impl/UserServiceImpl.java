@@ -37,13 +37,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllUsersByFilter(FilterUserDTO filterUserDTO) {
         if(Objects.isNull(filterUserDTO.getRole())) {
-            return userRepository.
-                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
-                            filterUserDTO.getFirstName(),
-                            filterUserDTO.getLastName(),
-                            filterUserDTO.getGender(),
-                            Role.ADMIN
-                    );
+            if(Objects.isNull(filterUserDTO.getIsActive())) {
+                return userRepository.
+                        findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
+                                filterUserDTO.getFirstName(),
+                                filterUserDTO.getLastName(),
+                                filterUserDTO.getGender(),
+                                Role.ADMIN
+                        );
+            } else {
+                return userRepository.
+                        findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNotAndIsActive(
+                                filterUserDTO.getFirstName(),
+                                filterUserDTO.getLastName(),
+                                filterUserDTO.getGender(),
+                                Role.ADMIN,
+                                filterUserDTO.getIsActive()
+                        );
+            }
         } else if(Objects.isNull(filterUserDTO.getIsActive())) {
             return userRepository.
                     findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRole(

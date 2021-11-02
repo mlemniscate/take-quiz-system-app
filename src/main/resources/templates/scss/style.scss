@@ -17,3 +17,15 @@ $theme-colors: (
 .w-40 {
   width: 40%;
 }
+
+.top-10 {
+  top: 10% !important;
+}
+
+.start-90 {
+  left: 90% !important;
+}
+
+.user-container {
+  grid-template-columns: 1fr 1fr 1fr;
+}

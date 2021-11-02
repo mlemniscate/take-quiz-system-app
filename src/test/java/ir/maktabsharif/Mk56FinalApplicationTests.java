@@ -21,7 +21,6 @@ class Mk56FinalApplicationTests {
 
 	@Test
 	void contextLoads() {
-		
 	}
 
 }

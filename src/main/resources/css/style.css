@@ -11464,4 +11464,17 @@ fieldset:disabled .btn {
 .w-40 {
   width: 40%;
 }
+
+.top-10 {
+  top: 10% !important;
+}
+
+.start-90 {
+  left: 90% !important;
+}
+
+.user-container {
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+}
 /*# sourceMappingURL=style.css.map */
