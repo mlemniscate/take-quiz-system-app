@@ -44,13 +44,22 @@ public class UserServiceImpl implements UserService {
                             filterUserDTO.getGender(),
                             Role.ADMIN
                     );
-        } else {
+        } else if(Objects.isNull(filterUserDTO.getIsActive())) {
             return userRepository.
                     findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRole(
                             filterUserDTO.getFirstName(),
                             filterUserDTO.getLastName(),
                             filterUserDTO.getGender(),
                             filterUserDTO.getRole()
+                    );
+        } else {
+            return userRepository.
+                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(
+                            filterUserDTO.getFirstName(),
+                            filterUserDTO.getLastName(),
+                            filterUserDTO.getGender(),
+                            filterUserDTO.getRole(),
+                            filterUserDTO.getIsActive()
                     );
         }
     }

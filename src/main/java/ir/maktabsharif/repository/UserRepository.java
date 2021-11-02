@@ -16,10 +16,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
             String gender,
             Role role
     );
+    List<User> findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(
+            String firstName,
+            String lastName,
+            String gender,
+            Role role,
+            Boolean isActive
+    );
     List<User> findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
             String firstName,
             String lastName,
             String gender,
             Role role
     );
+
 }

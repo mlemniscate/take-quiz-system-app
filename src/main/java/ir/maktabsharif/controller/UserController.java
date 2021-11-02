@@ -27,11 +27,11 @@ public class UserController {
 
     @GetMapping("/user/filter-users")
     @CrossOrigin
-    List<ReturnUserDTO> getAllUsersFilter(@RequestParam String firstName, String lastName, String gender, String role) {
+    List<ReturnUserDTO> getAllUsersFilter(@RequestParam String firstName, String lastName, String gender, String role, Boolean isActive) {
         Role backRole = role.equals("ADMIN") ? Role.ADMIN :
                 role.equals("TEACHER") ? Role.TEACHER :
                 role.equals("STUDENT") ? Role.STUDENT : null;
-        List<User> users = service.findAllUsersByFilter(new FilterUserDTO(firstName, lastName, gender, backRole));
+        List<User> users = service.findAllUsersByFilter(new FilterUserDTO(firstName, lastName, gender, backRole, isActive));
         List<ReturnUserDTO> userDTOList = new ArrayList<>();
         users.forEach(item -> {
             userDTOList.add(
