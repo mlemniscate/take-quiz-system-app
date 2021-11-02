@@ -13,4 +13,5 @@ public class FilterUserDTO {
     private String lastName;
     private String gender;
     private Role role;
+    private Boolean isActive;
 }
