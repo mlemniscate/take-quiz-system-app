@@ -116,7 +116,7 @@ function getShowUserHTML(user) {
         <h5 class="mx-3">${user.firstName} ${user.lastName}</h5>
         <h5 class="mx-3 float-end"><i class="fas fa-${
           user.gender == 'm' ? 'male' : 'female'
-        }"></i></h5>
+        } fa-2x"></i></h5>
       </div>
     </div>
     <div class="d-flex">
@@ -124,7 +124,7 @@ function getShowUserHTML(user) {
       <p>${user.email}</p>
     </div>
     <div class="d-flex justify-content-between">
-      <h6>${user.role == 'STUDENT' ? 'دانشجو' : 'استاد'}</h6>
+      <h6 class="h5">${user.role == 'STUDENT' ? 'دانشجو' : 'استاد'}</h6>
       <button class="btn btn-primary open-edit-user-modal" onclick="editUser('${
         user.username
       }')" data-bs-toggle="modal" data-bs-target="#editUserModal"
@@ -135,7 +135,7 @@ function getShowUserHTML(user) {
       data-gender = '${user.gender}'
       data-role = '${user.role}'
       data-is_active = '${user.isActive}'
-        ><i class="fas fa-user-edit"></i
+        ><i class="fas fa-user-edit fa-lg"></i
       ></button>
     </div>
   </div>
