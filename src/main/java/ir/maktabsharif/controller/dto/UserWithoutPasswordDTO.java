@@ -1,16 +1,14 @@
 package ir.maktabsharif.controller.dto;
 
 import ir.maktabsharif.model.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class ReturnUserDTO {
+public class UserWithoutPasswordDTO {
     private String username;
     private String firstName;
     private String lastName;

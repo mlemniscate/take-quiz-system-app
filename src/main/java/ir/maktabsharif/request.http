@@ -1,3 +1,17 @@
+POST http://localhost:8080/user/edit
+Content-Type: application/json
+
+{
+  "username": "abdimehran",
+  "firstName": "mehran",
+  "lastName": "abdi",
+  "email": "mehran@gmail.com",
+  "gender": "m",
+  "role": "TEACHER",
+  "isActive": false
+}
+
+###
 
 GET http://localhost:8080/user/filter-users?firstName=meh&lastName=&gender=&role=&isActive=
 Accept: application/json
@@ -22,7 +36,7 @@ Content-Type: application/json
   "firstName": "میلاد",
   "lastName": "عبدی",
   "email": "miladabdi1374@gmail.com",
-  "gender": "male"
+  "gender": "m"
 }
 
 ###
