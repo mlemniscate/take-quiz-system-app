@@ -1,7 +1,13 @@
 $(document).ready(function () {
+  // For the first page load
   ajaxGetUsersAndShow(
     `http://localhost:8080/user/filter-users?firstName=&lastName=&gender=&role=&isActive=`
   );
+  ajaxGetCoursesAndShow('http://localhost:8080/course/get-all');
+  // Course
+
+  // -------------------------------------------------------------------------------------
+  // User
   // when admin click on search users
   $('#searchUsers').click((event) => {
     console.log('hello');
@@ -37,7 +43,11 @@ $(document).ready(function () {
     $('#roleEditInput').val(dataRole);
   });
 
-  $('#editUserModal').on('hidden.bs.modal', function () {
+  // when modal hide
+  $('#editUserModal').on('hidden.bs.modal', function () {});
+
+  // when admin click for save user changes
+  $('#saveEditUser').click((event) => {
     let user = `{
       "username" : "${$('#usernameEditInput').val()}",
       "firstName" : "${$('#firstNameEditInput').val()}",
@@ -49,14 +59,77 @@ $(document).ready(function () {
     }`;
     ajaxSaveUserChanges('http://localhost:8080/user/edit', user);
     location.reload();
-  });
-
-  // when admin click for save user changes
-  $('#saveEditUser').click((event) => {
     $('#editUserModal').modal('hide');
   });
+  //------------------------------------------------------------------
 });
 
+// funcitons for Course
+// ajax request for getting users
+function ajaxGetCoursesAndShow(url) {
+  $.ajax({
+    type: 'GET',
+    url: url,
+    success: function (response) {
+      $('#courseContainer').html('');
+      for (let courseIndex = 0; courseIndex < response.length; courseIndex++) {
+        const element = response[courseIndex];
+        let html = getShowCourseHTML(element);
+        $('#courseContainer').append(html);
+      }
+    },
+  });
+}
+
+function getShowCourseHTML(course) {
+  return `<div class="card mb-4" style="width: 18rem; justify-self: center">
+  <div class="card-body">
+    <div class="card-title d-flex align-items-center">
+      <div class="w-100 text-center">
+        <h5 class="mx-3 h5">${course.title}</h5>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="">
+        تاریخ شروع <i class="fas fa-long-arrow-alt-left mx-3"></i>
+      </p>
+      <p>${course.startDate}</p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="">
+        تاریخ پایان <i class="fas fa-long-arrow-alt-left mx-3"></i>
+      </p>
+      <p>${course.endDate}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+      <button
+        class="btn btn-primary open-edit-user-modal w-100 mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="#addTeacherToCourseModal"
+      >
+        <i class="fas fa-plus"></i> استاد
+      </button>
+      <button
+        class="btn btn-primary open-edit-user-modal w-100 mx-1"
+        data-bs-toggle="modal"
+        data-bs-target="#addTeacherToCourseModal"
+      >
+        <i class="fas fa-plus"></i> دانشجو
+      </button>
+    </div>
+    <button
+      class="btn btn-primary open-edit-user-modal my-3"
+      data-bs-toggle="modal"
+      data-bs-target="#addTeacherToCourseModal"
+    >
+      <i class="fas fa-eye"></i> مشاهده لیست تمامی افراد
+    </button>
+  </div>
+</div>`;
+}
+
+// ------------------------------------------------------------------------
+// funcitons for User
 function ajaxSaveUserChanges(urlSave, user) {
   $.ajax({
     type: 'POST',
@@ -84,9 +157,6 @@ function ajaxGetUsersAndShow(url) {
     },
   });
 }
-
-// when admin click for edit user
-function editUser(username) {}
 
 // html creator for showing users
 function getShowUserHTML(user) {
@@ -141,3 +211,20 @@ function getShowUserHTML(user) {
   </div>
 </div>`;
 }
+
+// -------------------------------------------------------------------------------------
+// functions for Navbar
+$('#showUsersItem').click((event) => {
+  $('#usersShowing').removeClass('d-none');
+  $('#courseShowing').addClass('d-none');
+});
+$('#showCoursesItem').click((event) => {
+  $('#usersShowing').addClass('d-none');
+  $('#courseShowing').removeClass('d-none');
+});
+$('#logoutItem').click((event) => {
+  if (confirm('آیا می خواهید از حساب خود خارج شوید؟')) {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  }
+});

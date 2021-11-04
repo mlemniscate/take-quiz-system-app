@@ -11477,4 +11477,9 @@ fieldset:disabled .btn {
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
 }
+
+.course-container {
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 /*# sourceMappingURL=style.css.map */

@@ -28,13 +28,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course saveCourse(SaveCourseDTO course) {
         Course save = courseRepository.save(
-                new Course(
-                        course.getTitle(),
-                        course.getDescription(),
-                        course.getHours(),
-                        course.getStartDate(),
-                        course.getEndDate()
-                )
+                Course.builder()
+                .title(course.getTitle())
+                .startDate(course.getStartDate())
+                .endDate(course.getEndDate())
+                .build()
         );
         Admin admin = adminRepository.findByUsername(course.getAdminUsername());
         admin.getCourses().add(save);

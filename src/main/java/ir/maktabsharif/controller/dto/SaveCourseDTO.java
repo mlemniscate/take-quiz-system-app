@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 public class SaveCourseDTO {
     private String title;
-    private String description;
-    private Integer hours;
     private String startDate;
     private String endDate;
     private String adminUsername;
