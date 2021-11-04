@@ -23,6 +23,7 @@ public class CourseController {
 
     // create a new course
     @PostMapping("/course/save")
+    @CrossOrigin
     Course saveCourse(@RequestBody SaveCourseDTO saveCourseDTO) {
         return service.saveCourse(saveCourseDTO);
     }

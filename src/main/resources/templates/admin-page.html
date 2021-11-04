@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سیستم برگزاری آزمون آنلاین</title>
     <link
+      type="text/css"
+      rel="stylesheet"
+      href="../lib/jalali_data_picker/jalalidatepicker.min.css"
+    />
+    <link
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
@@ -144,6 +149,47 @@
       >
         <div id="addCourseBar">
           <div class="row g-3">
+            <!-- First Name -->
+            <div class="col">
+              <input
+                id="courseTitleInput"
+                type="text"
+                class="form-control"
+                placeholder="نام"
+                aria-label="First name"
+                required
+              />
+            </div>
+            <!-- Last Name -->
+            <div class="col">
+              <input
+                data-jdp
+                autocomplete="off"
+                readonly
+                id="startDateInput"
+                type="text"
+                class="form-control"
+                placeholder="تاریخ شروع"
+                aria-label="Last name"
+                value=""
+                required
+              />
+            </div>
+            <!-- Last Name -->
+            <div class="col">
+              <input
+                data-jdp
+                autocomplete="off"
+                readonly
+                id="endDateInput"
+                type="text"
+                value=""
+                class="form-control"
+                placeholder="تاریخ پایان"
+                aria-label="Last name"
+                required
+              />
+            </div>
             <div class="col-2">
               <button id="addCourseButton" class="btn btn-primary w-100">
                 <i class="fas fa-plus"></i> افزودن دوره
@@ -153,7 +199,7 @@
         </div>
         <hr />
 
-        <!-- Course Showing With Cards -->
+        <!-- Course Showing Cards -->
         <div id="courseContainer" class="d-grid course-container">
           <div class="card mb-4" style="width: 18rem; justify-self: center">
             <div class="card-body">
@@ -404,6 +450,45 @@
       </div>
     </div>
 
+    <!-- Modal For Adding Teacher To Course -->
+    <div
+      class="modal fade"
+      id="addTeacherToCourseModal"
+      tabindex="-1"
+      aria-labelledby="addTeacherToCourseModal"
+      aria-hidden="true"
+      style="direction: rtl"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content bg-secondary">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="addTeacherToCourseModal">
+              افزودن استاد به دوره
+            </h5>
+          </div>
+          <div id="addTeacherToCourseModalBody" class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              انصراف
+            </button>
+            <button id="saveEditUser" type="button" class="btn btn-primary">
+              زخیره تغییرات
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Jalali Date Picker Scripts -->
+    <script
+      type="text/javascript"
+      src="../lib/jalali_data_picker/jalalidatepicker.min.js"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="

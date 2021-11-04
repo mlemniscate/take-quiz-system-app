@@ -1,3 +1,7 @@
+GET http://localhost:8080/teacher/get-all
+Accept: application/json
+
+###
 POST http://localhost:8080/course/save
 Content-Type: application/json
 
@@ -9,7 +13,6 @@ Content-Type: application/json
 }
 
 ###
-
 
 GET http://localhost:8080/course/get-all
 Accept: application/json

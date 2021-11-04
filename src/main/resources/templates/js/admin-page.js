@@ -1,3 +1,4 @@
+let users;
 $(document).ready(function () {
   // For the first page load
   ajaxGetUsersAndShow(
@@ -43,9 +44,6 @@ $(document).ready(function () {
     $('#roleEditInput').val(dataRole);
   });
 
-  // when modal hide
-  $('#editUserModal').on('hidden.bs.modal', function () {});
-
   // when admin click for save user changes
   $('#saveEditUser').click((event) => {
     let user = `{
@@ -66,11 +64,26 @@ $(document).ready(function () {
 
 // funcitons for Course
 // ajax request for getting users
+
+// jalali date picker picking date of courses
+let startDateInput = document.getElementById('startDateInput');
+jalaliDatepicker.startWatch();
+startDateInput.addEventListener('focus', (event) => {
+  jalaliDatepicker.show(startDateInput);
+});
+let endDateInput = document.getElementById('endDateInput');
+jalaliDatepicker.startWatch();
+endDateInput.addEventListener('focus', (event) => {
+  jalaliDatepicker.show(endDateInput);
+});
+
+let courses;
 function ajaxGetCoursesAndShow(url) {
   $.ajax({
     type: 'GET',
     url: url,
     success: function (response) {
+      courses = response;
       $('#courseContainer').html('');
       for (let courseIndex = 0; courseIndex < response.length; courseIndex++) {
         const element = response[courseIndex];
@@ -81,6 +94,70 @@ function ajaxGetCoursesAndShow(url) {
   });
 }
 
+// button click event when we add course
+$('#addCourseButton').click((event) => {
+  event.preventDefault();
+  let courseTitleInput = $('#courseTitleInput').val();
+  let startDateInput = $('#startDateInput').val();
+  let endDateInput = $('#endDateInput').val();
+  if (courseTitleInput != '' && startDateInput != '' && endDateInput != '') {
+    let course = `{
+      "title": "${courseTitleInput}",
+      "startDate": "${startDateInput}",
+      "endDate": "${endDateInput}",
+      "adminUsername": "${sessionStorage.getItem('username')}"
+    }`;
+    ajaxForAddCourse(course);
+  } else {
+    alert('لطفا تمام فیلد ها را پر کنید!');
+  }
+});
+
+// Ajax for add a course
+function ajaxForAddCourse(course) {
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/course/save',
+    contentType: 'application/json',
+    data: course,
+    success: function (response) {
+      alert('دوره با موفقیت اضافه شد.');
+      location.reload();
+    },
+  });
+}
+
+// Ajax for getting teachers to show
+
+// Add teacher to course btn click
+function addTeacher(courseId) {
+  $('#addTeacherToCourseModalBody').html('');
+  for (let userIndex = 0; userIndex < users.length; userIndex++) {
+    const user = users[userIndex];
+    if (user.role == 'TEACHER') {
+      $('#addTeacherToCourseModalBody').append(getTeacherAddModalHTML(user));
+    }
+  }
+  $('#addTeacherToCourseModal').modal('hide');
+  $('#addTeacherToCourseModal').modal('show');
+}
+
+// Get HTML Strings
+function getTeacherAddModalHTML(teacher) {
+  return `<div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="teacherRadio"
+      id="${teacher.username}"
+    />
+    <label class="form-check-label" for="teacherRadio${teacher.username}">
+      ${teacher.firstName} ${teacher.lastName}
+    </label>
+  </div>
+</div>`;
+}
 function getShowCourseHTML(course) {
   return `<div class="card mb-4" style="width: 18rem; justify-self: center">
   <div class="card-body">
@@ -106,13 +183,14 @@ function getShowCourseHTML(course) {
         class="btn btn-primary open-edit-user-modal w-100 mx-1"
         data-bs-toggle="modal"
         data-bs-target="#addTeacherToCourseModal"
+        onclick="addTeacher()"
       >
         <i class="fas fa-plus"></i> استاد
       </button>
       <button
         class="btn btn-primary open-edit-user-modal w-100 mx-1"
         data-bs-toggle="modal"
-        data-bs-target="#addTeacherToCourseModal"
+        data-bs-target="#addStudentToCourseModal"
       >
         <i class="fas fa-plus"></i> دانشجو
       </button>
@@ -120,7 +198,7 @@ function getShowCourseHTML(course) {
     <button
       class="btn btn-primary open-edit-user-modal my-3"
       data-bs-toggle="modal"
-      data-bs-target="#addTeacherToCourseModal"
+      data-bs-target="#showCourseUsersModal"
     >
       <i class="fas fa-eye"></i> مشاهده لیست تمامی افراد
     </button>
@@ -149,6 +227,7 @@ function ajaxGetUsersAndShow(url) {
     url: url,
     success: function (response) {
       $('#userContainer').html('');
+      users = response;
       for (let userIndex = 0; userIndex < response.length; userIndex++) {
         const element = response[userIndex];
         let html = getShowUserHTML(element);

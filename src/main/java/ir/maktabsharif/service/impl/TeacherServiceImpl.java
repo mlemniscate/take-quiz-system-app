@@ -1,5 +1,6 @@
 package ir.maktabsharif.service.impl;
 
+import ir.maktabsharif.controller.dto.UserWithoutPasswordDTO;
 import ir.maktabsharif.model.Teacher;
 import ir.maktabsharif.model.User;
 import ir.maktabsharif.model.enums.SignUpStatus;
@@ -9,6 +10,7 @@ import ir.maktabsharif.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +29,10 @@ public class TeacherServiceImpl implements TeacherService {
         if(byUsername.isPresent() || byEmail.isPresent()) return SignUpStatus.USER_ALREADY_EXISTS;
         teacherRepository.save(newTeacher);
         return SignUpStatus.SUCCESS;
+    }
+
+    @Override
+    public List<Teacher> getAll() {
+        return teacherRepository.findAll();
     }
 }
