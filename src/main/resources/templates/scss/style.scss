@@ -1,0 +1,31 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+$theme-colors: (
+  'primary': #2a9d8f,
+  'danger': #e76f51,
+  'secondary': #e9c46a,
+  'info': #264653,
+);
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.btn {
+  color: white !important;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.top-10 {
+  top: 10% !important;
+}
+
+.start-90 {
+  left: 90% !important;
+}
+
+.user-container {
+  grid-template-columns: 1fr 1fr 1fr;
+}
