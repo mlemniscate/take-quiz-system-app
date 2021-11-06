@@ -1,10 +1,10 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.service.dto.UserWithoutPasswordDTO;
 import ir.maktabsharif.domain.Teacher;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.TeacherService;
+import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

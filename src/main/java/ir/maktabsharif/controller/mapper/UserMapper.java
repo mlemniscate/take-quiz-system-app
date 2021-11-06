@@ -5,10 +5,11 @@ import ir.maktabsharif.domain.User;
 import ir.maktabsharif.service.dto.UserDTO;
 import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper extends BaseMapper<User, UserDTO, Long> {
 
     List<UserWithoutPasswordDTO> convertListEntityToUserWithoutPassword(List<User> users);
@@ -17,6 +18,7 @@ public interface UserMapper extends BaseMapper<User, UserDTO, Long> {
 
     UserWithoutPasswordDTO convertEntityToUserWithoutPassword(User user);
 
+    @Mapping(target = "password", ignore = true)
     User convertUserWithoutPasswordToEntity(UserWithoutPasswordDTO withoutPasswordDTO);
 
 }

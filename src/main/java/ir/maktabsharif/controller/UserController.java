@@ -1,13 +1,15 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.service.dto.FilterUserDTO;
-import ir.maktabsharif.service.dto.LoginUserDTO;
-import ir.maktabsharif.service.dto.UserWithoutPasswordDTO;
+import ir.maktabsharif.base.web.rest.BaseRestFul;
+import ir.maktabsharif.controller.mapper.UserMapper;
 import ir.maktabsharif.domain.User;
 import ir.maktabsharif.domain.enums.LoginStatus;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.service.UserService;
-import lombok.RequiredArgsConstructor;
+import ir.maktabsharif.service.dto.FilterUserDTO;
+import ir.maktabsharif.service.dto.LoginUserDTO;
+import ir.maktabsharif.service.dto.UserDTO;
+import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,10 +17,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@RequiredArgsConstructor
-public class UserController {
+public class UserController extends BaseRestFul<User, UserDTO, Long, UserService, UserMapper> {
 
-    private final UserService service;
+    public UserController(UserService service, UserMapper mapper) {
+        super(service, mapper);
+    }
 
     @PostMapping("/login")
     @CrossOrigin
@@ -55,5 +58,4 @@ public class UserController {
         });
         return userDTOList;
     }
-
 }

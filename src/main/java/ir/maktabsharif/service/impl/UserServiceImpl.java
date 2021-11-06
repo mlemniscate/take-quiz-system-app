@@ -1,14 +1,14 @@
 package ir.maktabsharif.service.impl;
 
 import ir.maktabsharif.base.service.impl.BaseServiceImpl;
-import ir.maktabsharif.service.dto.FilterUserDTO;
-import ir.maktabsharif.service.dto.LoginUserDTO;
-import ir.maktabsharif.service.dto.UserWithoutPasswordDTO;
 import ir.maktabsharif.domain.User;
 import ir.maktabsharif.domain.enums.LoginStatus;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.UserService;
+import ir.maktabsharif.service.dto.FilterUserDTO;
+import ir.maktabsharif.service.dto.LoginUserDTO;
+import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

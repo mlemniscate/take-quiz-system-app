@@ -17,8 +17,8 @@ import java.util.Optional;
 public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK extends Serializable,
         S extends BaseService<E, PK>, M extends BaseMapper<E, D, PK>> {
 
-    private final S service;
-    private final M mapper;
+    protected final S service;
+    protected final M mapper;
 
     public BaseRestFul(S service, M mapper) {
         this.service = service;
