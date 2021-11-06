@@ -1,4 +1,4 @@
-package ir.maktabsharif.controller.dto;
+package ir.maktabsharif.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

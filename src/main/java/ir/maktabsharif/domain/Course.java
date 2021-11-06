@@ -1,6 +1,6 @@
-package ir.maktabsharif.model;
+package ir.maktabsharif.domain;
 
-import ir.maktabsharif.model.base.BaseEntity;
+import ir.maktabsharif.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;

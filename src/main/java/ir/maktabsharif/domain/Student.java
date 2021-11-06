@@ -1,4 +1,4 @@
-package ir.maktabsharif.model;
+package ir.maktabsharif.domain;
 
 import lombok.*;
 

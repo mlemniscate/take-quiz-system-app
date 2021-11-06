@@ -1,9 +1,8 @@
 package ir.maktabsharif.service.impl;
 
-import ir.maktabsharif.controller.dto.UserWithoutPasswordDTO;
-import ir.maktabsharif.model.Teacher;
-import ir.maktabsharif.model.User;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.domain.Teacher;
+import ir.maktabsharif.domain.User;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.repository.TeacherRepository;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.TeacherService;

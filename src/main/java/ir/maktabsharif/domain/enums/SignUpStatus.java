@@ -1,4 +1,4 @@
-package ir.maktabsharif.model.enums;
+package ir.maktabsharif.domain.enums;
 
 public enum SignUpStatus {
     SUCCESS,

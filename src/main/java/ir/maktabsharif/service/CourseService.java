@@ -1,7 +1,7 @@
 package ir.maktabsharif.service;
 
-import ir.maktabsharif.controller.dto.SaveCourseDTO;
-import ir.maktabsharif.model.Course;
+import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.domain.Course;
 
 import java.util.List;
 

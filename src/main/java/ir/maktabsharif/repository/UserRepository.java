@@ -1,7 +1,7 @@
 package ir.maktabsharif.repository;
 
-import ir.maktabsharif.model.User;
-import ir.maktabsharif.model.enums.Role;
+import ir.maktabsharif.domain.User;
+import ir.maktabsharif.domain.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

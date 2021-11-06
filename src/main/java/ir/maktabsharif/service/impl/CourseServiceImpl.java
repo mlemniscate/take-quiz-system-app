@@ -1,8 +1,7 @@
 package ir.maktabsharif.service.impl;
 
-import ir.maktabsharif.controller.dto.SaveCourseDTO;
-import ir.maktabsharif.model.Admin;
-import ir.maktabsharif.model.Course;
+import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.domain.Course;
 import ir.maktabsharif.repository.AdminRepository;
 import ir.maktabsharif.repository.CourseRepository;
 import ir.maktabsharif.service.CourseService;
@@ -27,16 +26,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course saveCourse(SaveCourseDTO course) {
-        Course save = courseRepository.save(
+        return courseRepository.save(
                 Course.builder()
                 .title(course.getTitle())
                 .startDate(course.getStartDate())
                 .endDate(course.getEndDate())
                 .build()
         );
-        Admin admin = adminRepository.findByUsername(course.getAdminUsername());
-        admin.getCourses().add(save);
-        adminRepository.save(admin);
-        return save;
     }
 }

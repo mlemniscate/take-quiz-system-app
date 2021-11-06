@@ -1,8 +1,8 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.model.Student;
-import ir.maktabsharif.model.enums.Role;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.domain.Student;
+import ir.maktabsharif.domain.enums.Role;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;

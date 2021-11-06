@@ -1,6 +1,6 @@
-package ir.maktabsharif.controller.dto;
+package ir.maktabsharif.service.dto;
 
-import ir.maktabsharif.model.enums.Role;
+import ir.maktabsharif.domain.enums.Role;
 import lombok.*;
 
 @AllArgsConstructor

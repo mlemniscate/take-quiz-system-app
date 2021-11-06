@@ -1,8 +1,8 @@
 package ir.maktabsharif.service.impl;
 
-import ir.maktabsharif.model.Student;
-import ir.maktabsharif.model.User;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.domain.Student;
+import ir.maktabsharif.domain.User;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.repository.StudentRepository;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.StudentService;

@@ -1,7 +1,7 @@
-package ir.maktabsharif.model;
+package ir.maktabsharif.domain;
 
-import ir.maktabsharif.model.base.BaseEntity;
-import ir.maktabsharif.model.enums.Role;
+import ir.maktabsharif.base.BaseEntity;
+import ir.maktabsharif.domain.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +44,5 @@ public class User extends BaseEntity<Long> {
     private Role role;
     @Column(name = IS_ACTIVE)
     private Boolean isActive = false;
-
 
 }

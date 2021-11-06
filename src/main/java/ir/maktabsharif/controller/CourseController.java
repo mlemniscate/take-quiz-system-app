@@ -1,7 +1,7 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.controller.dto.SaveCourseDTO;
-import ir.maktabsharif.model.Course;
+import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.domain.Course;
 import ir.maktabsharif.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

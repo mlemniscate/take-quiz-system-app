@@ -1,7 +1,7 @@
 package ir.maktabsharif.service;
 
-import ir.maktabsharif.model.Teacher;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.domain.Teacher;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 
 import java.util.List;
 

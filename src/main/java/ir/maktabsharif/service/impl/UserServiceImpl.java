@@ -1,14 +1,14 @@
 package ir.maktabsharif.service.impl;
 
-import ir.maktabsharif.controller.dto.FilterUserDTO;
-import ir.maktabsharif.controller.dto.LoginUserDTO;
-import ir.maktabsharif.controller.dto.UserWithoutPasswordDTO;
-import ir.maktabsharif.model.User;
-import ir.maktabsharif.model.enums.LoginStatus;
-import ir.maktabsharif.model.enums.Role;
+import ir.maktabsharif.base.service.impl.BaseServiceImpl;
+import ir.maktabsharif.service.dto.FilterUserDTO;
+import ir.maktabsharif.service.dto.LoginUserDTO;
+import ir.maktabsharif.service.dto.UserWithoutPasswordDTO;
+import ir.maktabsharif.domain.User;
+import ir.maktabsharif.domain.enums.LoginStatus;
+import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,15 +18,16 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository> implements UserService {
 
-    private final UserRepository userRepository;
+    public UserServiceImpl(UserRepository repository) {
+        super(repository);
+    }
 
     // when user login we send different login statuses based on loginUserDTO information
     @Override
     public LoginStatus login(LoginUserDTO loginUserDTO) {
-        Optional<User> user = userRepository.findByUsername(loginUserDTO.getUsername());
+        Optional<User> user = repository.findByUsername(loginUserDTO.getUsername());
         if (user.isEmpty()) return LoginStatus.WRONG_USERNAME;
         if (!user.get().getPassword().equals(loginUserDTO.getPassword())) return LoginStatus.WRONG_PASSWORD;
         if (!user.get().getIsActive()) return LoginStatus.IS_NOT_ACTIVE;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsersByFilter(FilterUserDTO filterUserDTO) {
         if (Objects.isNull(filterUserDTO.getRole())) {
             if (Objects.isNull(filterUserDTO.getIsActive())) {
-                return userRepository.
+                return repository.
                         findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
                                 filterUserDTO.getFirstName(),
                                 filterUserDTO.getLastName(),
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
                                 Role.ADMIN
                         );
             } else {
-                return userRepository.
+                return repository.
                         findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNotAndIsActive(
                                 filterUserDTO.getFirstName(),
                                 filterUserDTO.getLastName(),
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
                         );
             }
         } else if (Objects.isNull(filterUserDTO.getIsActive())) {
-            return userRepository.
+            return repository.
                     findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRole(
                             filterUserDTO.getFirstName(),
                             filterUserDTO.getLastName(),
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
                             filterUserDTO.getRole()
                     );
         } else {
-            return userRepository.
+            return repository.
                     findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(
                             filterUserDTO.getFirstName(),
                             filterUserDTO.getLastName(),
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editUser(UserWithoutPasswordDTO userWithoutPasswordDTO) {
-        Optional<User> byUsername = userRepository.findByUsername(userWithoutPasswordDTO.getUsername());
+        Optional<User> byUsername = repository.findByUsername(userWithoutPasswordDTO.getUsername());
         if (byUsername.isPresent()) {
             User user = byUsername.get();
             user.setFirstName(userWithoutPasswordDTO.getFirstName());
@@ -89,9 +90,9 @@ public class UserServiceImpl implements UserService {
             user.setGender(userWithoutPasswordDTO.getGender());
             user.setRole(userWithoutPasswordDTO.getRole());
             user.setIsActive(userWithoutPasswordDTO.getIsActive());
-            user = userRepository.save(user);
+            user = repository.save(user);
             String userType = userWithoutPasswordDTO.getRole().equals(Role.STUDENT) ? "Student" : "Teacher";
-            userRepository.editUserTypeNative(userType, user.getUsername());
+            repository.editUserTypeNative(userType, user.getUsername());
         }
     }
 }

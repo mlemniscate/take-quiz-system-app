@@ -1,4 +1,4 @@
-package ir.maktabsharif.model.enums;
+package ir.maktabsharif.domain.enums;
 
 public enum Role {
     STUDENT, TEACHER, ADMIN
