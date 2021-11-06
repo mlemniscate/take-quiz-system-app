@@ -1,6 +1,7 @@
 package ir.maktabsharif.domain;
 
 import ir.maktabsharif.base.BaseEntity;
+import ir.maktabsharif.domain.enums.Gender;
 import ir.maktabsharif.domain.enums.Role;
 import lombok.*;
 
@@ -29,19 +30,27 @@ public class User extends BaseEntity<Long> {
 
     @Column(name = USERNAME, nullable = false, unique = true)
     private String username;
+
     @Column(name = PASSWORD)
     private String password;
+
     @Column(name = FIRST_NAME)
     private String firstName;
+
     @Column(name = LAST_NAME)
     private String lastName;
+
     @Column(name = EMAIL, nullable = false, unique = true)
     private String email;
+
     @Column(name = GENDER)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column(name = ROLE)
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column(name = IS_ACTIVE)
     private Boolean isActive = false;
 

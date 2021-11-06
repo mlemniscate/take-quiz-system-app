@@ -1,6 +1,7 @@
 package ir.maktabsharif.service.dto;
 
 import ir.maktabsharif.base.BaseDTO;
+import ir.maktabsharif.domain.enums.Gender;
 import ir.maktabsharif.domain.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class UserDTO extends BaseDTO<Long> {
     private String firstName;
     private String lastName;
     private String email;
-    private String gender;
+    private Gender gender;
     private Role role;
     private Boolean isActive;
 

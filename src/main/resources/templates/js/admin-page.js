@@ -22,7 +22,6 @@ $(document).ready(function () {
     }&role=${role == null ? '' : role}&isActive=${
       isActive == null ? '' : isActive
     }`;
-    console.log(url);
     ajaxGetUsersAndShow(url);
   });
 
@@ -264,7 +263,7 @@ function getShowUserHTML(user) {
       <div class="d-flex justify-content-between w-100">
         <h5 class="mx-3">${user.firstName} ${user.lastName}</h5>
         <h5 class="mx-3 float-end"><i class="fas fa-${
-          user.gender == 'm' ? 'male' : 'female'
+          user.gender == 'MALE' ? 'male' : 'female'
         } fa-2x"></i></h5>
       </div>
     </div>

@@ -40,43 +40,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
     // return users based on filterUserDTO information and filter users
     @Override
     public List<User> findAllUsersByFilter(FilterUserDTO filterUserDTO) {
-        if (Objects.isNull(filterUserDTO.getRole())) {
-            if (Objects.isNull(filterUserDTO.getIsActive())) {
-                return repository.
-                        findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNot(
-                                filterUserDTO.getFirstName(),
-                                filterUserDTO.getLastName(),
-                                filterUserDTO.getGender(),
-                                Role.ADMIN
-                        );
-            } else {
-                return repository.
-                        findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleNotAndIsActive(
-                                filterUserDTO.getFirstName(),
-                                filterUserDTO.getLastName(),
-                                filterUserDTO.getGender(),
-                                Role.ADMIN,
-                                filterUserDTO.getIsActive()
-                        );
-            }
-        } else if (Objects.isNull(filterUserDTO.getIsActive())) {
-            return repository.
-                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRole(
-                            filterUserDTO.getFirstName(),
-                            filterUserDTO.getLastName(),
-                            filterUserDTO.getGender(),
-                            filterUserDTO.getRole()
-                    );
-        } else {
-            return repository.
-                    findByFirstNameContainingAndLastNameContainingAndGenderContainingAndRoleAndIsActive(
-                            filterUserDTO.getFirstName(),
-                            filterUserDTO.getLastName(),
-                            filterUserDTO.getGender(),
-                            filterUserDTO.getRole(),
-                            filterUserDTO.getIsActive()
-                    );
-        }
+        String gender = filterUserDTO.getGender().equals("FEMALE") ? "F" :
+                filterUserDTO.getGender().equals("MALE") ? "M" : "";
+        Boolean isActiveUser = filterUserDTO.getIsActive();
+        List<Boolean> isActive = Objects.isNull(isActiveUser) ? List.of(true, false) :
+                isActiveUser ? List.of(true) : List.of(false);
+        return repository.findAll(
+                filterUserDTO.getFirstName(),
+                filterUserDTO.getLastName(),
+                gender,
+                filterUserDTO.getRole(),
+                isActive
+                );
     }
 
     @Override

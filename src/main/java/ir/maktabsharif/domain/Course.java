@@ -22,10 +22,13 @@ public class Course extends BaseEntity<Long> {
 
     @Column(name = TITLE)
     private String title;
+
     @Column(name = START_DATE)
     private String startDate;
+
     @Column(name = END_DATE)
     private String endDate;
+
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
