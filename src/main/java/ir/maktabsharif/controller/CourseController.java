@@ -1,28 +1,32 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.base.web.rest.BaseRestFul;
+import ir.maktabsharif.controller.mapper.CourseMapper;
 import ir.maktabsharif.domain.Course;
 import ir.maktabsharif.service.CourseService;
-import lombok.RequiredArgsConstructor;
+import ir.maktabsharif.service.dto.CourseDTO;
+import ir.maktabsharif.service.dto.SaveCourseDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-public class CourseController {
+@RequestMapping("/course")
+public class CourseController extends BaseRestFul<Course, CourseDTO, Long, CourseService, CourseMapper> {
 
-    private final CourseService service;
+    public CourseController(CourseService service, CourseMapper mapper) {
+        super(service, mapper);
+    }
 
     // get all courses
-    @GetMapping("/course/get-all")
+    @GetMapping("/get-all")
     @CrossOrigin
     List<Course> getAllCourses() {
         return service.getAllCourses();
     }
 
     // create a new course
-    @PostMapping("/course/save")
+    @PostMapping("/save")
     @CrossOrigin
     Course saveCourse(@RequestBody SaveCourseDTO saveCourseDTO) {
         return service.saveCourse(saveCourseDTO);

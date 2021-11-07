@@ -4,7 +4,7 @@ $(document).ready(function () {
   ajaxGetUsersAndShow(
     `http://localhost:8080/user/filter-users?firstName=&lastName=&gender=&role=&isActive=`
   );
-  ajaxGetCoursesAndShow('http://localhost:8080/course/get-all');
+  ajaxGetCoursesAndShow('http://localhost:8080/course');
   // Course
 
   // -------------------------------------------------------------------------------------

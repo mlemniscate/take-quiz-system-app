@@ -13,7 +13,6 @@ import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,25 +35,13 @@ public class UserController extends BaseRestFul<User, UserDTO, Long, UserService
         service.editUser(userWithoutPasswordDTO);
     }
 
+//    Get all filtered users
     @GetMapping("/filter-users")
     @CrossOrigin
-    List<UserWithoutPasswordDTO> getAllUsersFilter(@RequestParam String firstName, String lastName, String gender, String role, Boolean isActive) {
-        List<User> users = service.findAllUsersByFilter(new FilterUserDTO(firstName, lastName, gender, role, isActive));
-        List<UserWithoutPasswordDTO> userDTOList = new ArrayList<>();
-        users.forEach(item -> {
-            userDTOList.add(
-                    new UserWithoutPasswordDTO(
-                            item.getUsername(),
-                            item.getFirstName(),
-                            item.getLastName(),
-                            item.getEmail(),
-                            item.getGender(),
-                            item.getRole(),
-                            item.getIsActive()
-                    )
-            );
-        });
-        return userDTOList;
+    public ResponseEntity<List<UserDTO>> getAllUsersFilter(@RequestParam String firstName, String lastName, String gender, String role, Boolean isActive) {
+        return ResponseEntity.ok(mapper.convertListEntityToDTO(
+                service.findAllUsersByFilter(new FilterUserDTO(firstName, lastName, gender, role, isActive))
+        ));
     }
 
 //    Get all the users without password from this api
