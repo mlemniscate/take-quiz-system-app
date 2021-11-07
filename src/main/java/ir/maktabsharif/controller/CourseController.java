@@ -6,8 +6,9 @@ import ir.maktabsharif.controller.mapper.StudentMapper;
 import ir.maktabsharif.domain.Course;
 import ir.maktabsharif.service.CourseService;
 import ir.maktabsharif.service.dto.CourseDTO;
-import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
 import ir.maktabsharif.service.dto.StudentDTO;
+import ir.maktabsharif.service.dto.TeacherDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,11 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
     @PostMapping("/save")
     Course saveCourse(@RequestBody SaveCourseDTO saveCourseDTO) {
         return service.saveCourse(saveCourseDTO);
+    }
+
+    @PutMapping("/set-teacher")
+    ResponseEntity<Course> updateCourseTeacher(@RequestBody TeacherDTO teacherDTO) {
+
     }
     
     // get all students of a course

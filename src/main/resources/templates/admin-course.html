@@ -54,6 +54,7 @@
 
       <!-- Course Showing -->
       <div class="container mt-5 bg-secondary p-4" style="direction: rtl">
+        <!-- Course -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <div>
             <button id="editCourseInfo" class="btn btn-primary">
@@ -68,6 +69,7 @@
             <small>تاریخ پایان: &nbsp;<span id="dateEnd"></span></small>
           </div>
         </div>
+        <!-- Form for edit course -->
         <form id="editCourseForm" action="" class="w-50 m-auto d-none">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -131,6 +133,7 @@
           </div>
         </form>
         <hr />
+        <!-- Teacher -->
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex">
             <p class="h5">
@@ -139,7 +142,12 @@
             </p>
           </div>
           <div>
-            <button id="#editCourseInfo" class="btn btn-primary">
+            <button
+              id="editCourseTeacher"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#editTeacherModal"
+            >
               <i class="fas fa-edit"></i> ویرایش استاد دوره
             </button>
           </div>
@@ -158,6 +166,37 @@
       </div>
     </div>
 
+    <!-- Modal adding teacher -->
+    <div
+      class="modal fade"
+      id="editTeacherModal"
+      tabindex="-1"
+      aria-labelledby="editTeacherModal"
+      aria-hidden="true"
+      style="direction: rtl"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content bg-secondary">
+          <div id="teachersContainerModal" class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              انصراف
+            </button>
+            <button
+              id="saveEditCourseTeacher"
+              type="button"
+              class="btn btn-primary"
+            >
+              زخیره تغییرات
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Scripts -->
     <!-- Jalali Date Picker Scripts -->
     <script

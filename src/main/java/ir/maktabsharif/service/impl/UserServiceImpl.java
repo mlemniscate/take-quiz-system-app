@@ -6,8 +6,8 @@ import ir.maktabsharif.domain.enums.LoginStatus;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.UserService;
-import ir.maktabsharif.service.dto.FilterUserDTO;
-import ir.maktabsharif.service.dto.LoginUserDTO;
+import ir.maktabsharif.service.dto.extra.FilterUserDTO;
+import ir.maktabsharif.service.dto.extra.LoginUserDTO;
 import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +66,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
             user.setRole(userWithoutPasswordDTO.getRole());
             user.setIsActive(userWithoutPasswordDTO.getIsActive());
             user = repository.save(user);
-            String userType = userWithoutPasswordDTO.getRole().equals(Role.STUDENT) ? "Student" : "Teacher";
+            String userType = userWithoutPasswordDTO.getRole().toString();
             repository.editUserTypeNative(userType, user.getUsername());
         }
     }

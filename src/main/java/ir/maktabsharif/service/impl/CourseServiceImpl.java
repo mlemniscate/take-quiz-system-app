@@ -5,7 +5,7 @@ import ir.maktabsharif.domain.Course;
 import ir.maktabsharif.repository.AdminRepository;
 import ir.maktabsharif.repository.CourseRepository;
 import ir.maktabsharif.service.CourseService;
-import ir.maktabsharif.service.dto.SaveCourseDTO;
+import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

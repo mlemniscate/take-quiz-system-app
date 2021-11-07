@@ -1,5 +1,6 @@
 let course;
 let students;
+let allActiveTeachers;
 $(document).ready(function () {
   let id = sessionStorage.getItem('courseId');
   findCourseById(id);
@@ -26,6 +27,18 @@ $(document).ready(function () {
   // back button functionality
   $('#backButton').click((event) => {
     window.location.href = 'admin-page.html';
+  });
+
+  // Add teacher to course btn click
+  $('#editCourseTeacher').click((event) => {
+    $('#teachersContainerModal').html('');
+    getAllActiveTeachersRequest();
+    for (let i = 0; i < allActiveTeachers.length; i++) {
+      const teacher = allActiveTeachers[i];
+      $('#teachersContainerModal').append(getTeacherAddModalHTML(teacher));
+    }
+    $('#editTeacherModal').modal('hide');
+    $('#editTeacherModal').modal('show');
   });
 });
 
@@ -94,6 +107,31 @@ function updateCourse() {
       location.reload();
     },
   });
+}
+
+// get all active teachers
+function getAllActiveTeachersRequest() {
+  $.ajax({
+    type: 'GET',
+    async: false,
+    url: 'http://localhost:8080/user/filter-users?firstName=&lastName=&gender=&role=TEACHER&isActive=true',
+    success: function (response) {
+      allActiveTeachers = response;
+    },
+  });
+}
+
+function getTeacherAddModalHTML(teacher) {
+  return `<li class="list-group-item bg-secondary">
+  <input
+    class="form-check-input me-1"
+    type="radio"
+    name="teacher"
+    value=""
+    aria-label="..."
+  />
+  ${teacher.firstName} ${teacher.lastName}
+</li>`;
 }
 
 function getStudentCardHTML(student) {

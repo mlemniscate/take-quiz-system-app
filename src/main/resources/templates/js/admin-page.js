@@ -54,6 +54,7 @@ $(document).ready(function () {
       "role" : "${$('#roleEditInput').val()}",
       "isActive" : ${$('#isActiveEditInput').is(':checked')}
     }`;
+    console.log(user);
     ajaxSaveUserChanges('http://localhost:8080/user/edit', user);
     location.reload();
     $('#editUserModal').modal('hide');
