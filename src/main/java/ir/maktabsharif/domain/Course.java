@@ -4,6 +4,7 @@ import ir.maktabsharif.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,4 +33,7 @@ public class Course extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students;
 }

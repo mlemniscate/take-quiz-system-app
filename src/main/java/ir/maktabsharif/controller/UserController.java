@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController extends BaseRestFul<User, UserDTO, Long, UserService, UserMapper> {
 
     public UserController(UserService service, UserMapper mapper) {
@@ -24,20 +25,17 @@ public class UserController extends BaseRestFul<User, UserDTO, Long, UserService
     }
 
     @PostMapping("/login")
-    @CrossOrigin
     LoginStatus loginUser(@RequestBody LoginUserDTO loginUserDTO) {
         return service.login(loginUserDTO);
     }
 
     @PostMapping("/edit")
-    @CrossOrigin
     void editUser(@RequestBody UserWithoutPasswordDTO userWithoutPasswordDTO) {
         service.editUser(userWithoutPasswordDTO);
     }
 
 //    Get all filtered users
     @GetMapping("/filter-users")
-    @CrossOrigin
     public ResponseEntity<List<UserDTO>> getAllUsersFilter(@RequestParam String firstName, String lastName, String gender, String role, Boolean isActive) {
         return ResponseEntity.ok(mapper.convertListEntityToDTO(
                 service.findAllUsersByFilter(new FilterUserDTO(firstName, lastName, gender, role, isActive))

@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teacher")
+@CrossOrigin
 public class TeacherController extends BaseRestFul<Teacher, TeacherDTO, Long, TeacherService, TeacherMapper> {
 
     public TeacherController(TeacherService service, TeacherMapper mapper) {

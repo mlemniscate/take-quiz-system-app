@@ -5,11 +5,13 @@ import ir.maktabsharif.controller.mapper.AdminMapper;
 import ir.maktabsharif.domain.Admin;
 import ir.maktabsharif.service.AdminService;
 import ir.maktabsharif.service.dto.AdminDTO;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController extends BaseRestFul<Admin, AdminDTO, Long, AdminService, AdminMapper> {
 
     public AdminController(AdminService service, AdminMapper mapper) {

@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK extends Serializable,
         S extends BaseService<E, PK>, M extends BaseMapper<E, D, PK>> {
 
@@ -70,9 +71,9 @@ public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK ext
     @ApiOperation(value = "update entity")
     public ResponseEntity<D> update(@RequestBody D d) {
         if(d.getId() == null) return ResponseEntity.badRequest().build();
-        E entity = service.saveNotSecure(
-                mapper.convertDTOToEntity(d)
-        );
+        E e = mapper.convertDTOToEntity(d);
+        e.setId(d.getId());
+        E entity = service.saveNotSecure(e);
         return ResponseEntity.ok(mapper.convertEntityToDTO(entity));
     }
 }
