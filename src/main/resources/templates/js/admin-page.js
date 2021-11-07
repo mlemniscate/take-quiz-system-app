@@ -93,6 +93,12 @@ function ajaxGetCoursesAndShow(url) {
   });
 }
 
+// button click to show course details page
+function showCourseDetails(courseId) {
+  sessionStorage.setItem('courseId', courseId);
+  window.location.href = 'admin-course.html';
+}
+
 // button click event when we add course
 $('#addCourseButton').click((event) => {
   event.preventDefault();
@@ -177,29 +183,11 @@ function getShowCourseHTML(course) {
       </p>
       <p>${course.endDate}</p>
     </div>
-    <div class="d-flex justify-content-between">
-      <button
-        class="btn btn-primary open-edit-user-modal w-100 mx-1"
-        data-bs-toggle="modal"
-        data-bs-target="#addTeacherToCourseModal"
-        onclick="addTeacher()"
-      >
-        <i class="fas fa-plus"></i> استاد
-      </button>
-      <button
-        class="btn btn-primary open-edit-user-modal w-100 mx-1"
-        data-bs-toggle="modal"
-        data-bs-target="#addStudentToCourseModal"
-      >
-        <i class="fas fa-plus"></i> دانشجو
-      </button>
-    </div>
     <button
       class="btn btn-primary open-edit-user-modal my-3"
-      data-bs-toggle="modal"
-      data-bs-target="#showCourseUsersModal"
+      onclick="showCourseDetails(${course.id})"
     >
-      <i class="fas fa-eye"></i> مشاهده لیست تمامی افراد
+      <i class="fas fa-eye"></i> مشخصات کامل دوره
     </button>
   </div>
 </div>`;

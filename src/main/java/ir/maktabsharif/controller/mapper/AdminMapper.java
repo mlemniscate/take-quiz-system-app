@@ -5,7 +5,7 @@ import ir.maktabsharif.domain.Admin;
 import ir.maktabsharif.service.dto.AdminDTO;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface AdminMapper extends BaseMapper<Admin, AdminDTO, Long> {
 
 }

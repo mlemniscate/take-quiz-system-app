@@ -1,7 +1,6 @@
 package ir.maktabsharif.service.dto;
 
 import ir.maktabsharif.base.BaseDTO;
-import ir.maktabsharif.domain.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,6 @@ public class CourseDTO extends BaseDTO<Long> {
     private String title;
     private String startDate;
     private String endDate;
-    private Teacher teacher;
+    private TeacherDTO teacher;
 
 }

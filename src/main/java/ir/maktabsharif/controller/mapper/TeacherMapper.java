@@ -5,7 +5,7 @@ import ir.maktabsharif.domain.Teacher;
 import ir.maktabsharif.service.dto.TeacherDTO;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface TeacherMapper extends BaseMapper<Teacher, TeacherDTO, Long> {
 
 }

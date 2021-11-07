@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserMapper extends BaseMapper<User, UserDTO, Long> {
 
     List<UserWithoutPasswordDTO> convertListEntityToUserWithoutPassword(List<User> users);
