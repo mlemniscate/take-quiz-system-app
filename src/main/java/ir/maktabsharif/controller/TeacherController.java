@@ -23,7 +23,6 @@ public class TeacherController extends BaseRestFul<Teacher, TeacherDTO, Long, Te
     }
 
     @PostMapping("/sign-up")
-    @CrossOrigin
     SignUpStatus newTeacher(@RequestBody Teacher newTeacher) {
         newTeacher.setRole(Role.TEACHER);
         return service.save(newTeacher);

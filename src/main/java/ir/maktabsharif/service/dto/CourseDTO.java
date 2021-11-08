@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,5 +18,6 @@ public class CourseDTO extends BaseDTO<Long> {
     private String startDate;
     private String endDate;
     private TeacherDTO teacher;
+    private List<StudentDTO> students;
 
 }

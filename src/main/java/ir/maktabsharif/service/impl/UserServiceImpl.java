@@ -40,8 +40,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
     // return users based on filterUserDTO information and filter users
     @Override
     public List<User> findAllUsersByFilter(FilterUserDTO filterUserDTO) {
-        String gender = filterUserDTO.getGender().equals("FEMALE") ? "F" :
-                filterUserDTO.getGender().equals("MALE") ? "M" : "";
+        String gender = "";
+        if(!Objects.isNull(filterUserDTO.getGender())) {
+            gender = filterUserDTO.getGender().equals("FEMALE") ? "F" :
+                    filterUserDTO.getGender().equals("MALE") ? "M" : "";
+        }
         Boolean isActiveUser = filterUserDTO.getIsActive();
         List<Boolean> isActive = Objects.isNull(isActiveUser) ? List.of(true, false) :
                 isActiveUser ? List.of(true) : List.of(false);

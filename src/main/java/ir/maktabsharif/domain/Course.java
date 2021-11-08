@@ -4,6 +4,7 @@ import ir.maktabsharif.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = Course.TABLE_NAME)
 public class Course extends BaseEntity<Long> {
     public static final String TABLE_NAME = "courses";
@@ -30,10 +30,23 @@ public class Course extends BaseEntity<Long> {
     @Column(name = END_DATE)
     private String endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "courses")
-    private List<Student> students;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "students_courses",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students = new ArrayList<>();
+
+    @Builder
+    public Course(Long id, String title, String startDate, String endDate, Teacher teacher, List<Student> students) {
+        super(id);
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.teacher = teacher;
+        this.students = students;
+    }
 }

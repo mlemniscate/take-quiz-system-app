@@ -19,7 +19,6 @@ public class StudentController extends BaseRestFul<Student, StudentDTO, Long, St
     }
 
     @PostMapping("/sign-up")
-    @CrossOrigin
     SignUpStatus newStudent(@RequestBody Student newStudent) {
         newStudent.setRole(Role.STUDENT);
         return service.save(newStudent);

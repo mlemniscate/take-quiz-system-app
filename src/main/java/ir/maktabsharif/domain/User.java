@@ -54,4 +54,15 @@ public class User extends BaseEntity<Long> {
     @Column(name = IS_ACTIVE)
     private Boolean isActive = false;
 
+    public User(Long id, String username, String password, String firstName, String lastName, String email, Gender gender, Role role, Boolean isActive) {
+        super(id);
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.role = role;
+        this.isActive = isActive;
+    }
 }
