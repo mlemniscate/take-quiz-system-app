@@ -71,4 +71,14 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         }
         else throw new RuntimeException("Course Id is wrong!");
     }
+
+    @Override
+    public void deleteStudentFromCourse(Long studentId, Long courseId) {
+        Optional<Course> courseOptional = repository.findById(courseId);
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if(courseOptional.isPresent() && studentOptional.isPresent()) {
+            courseOptional.get().getStudents().remove(studentOptional.get());
+            repository.save(courseOptional.get());
+        }
+    }
 }

@@ -44,6 +44,7 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
         return service.saveCourse(saveCourseDTO);
     }
 
+    // set teacher to course
     @PutMapping("/set-teacher")
     ResponseEntity<CourseDTO> updateCourseTeacher(@RequestBody TeacherDTO teacherDTO, @RequestParam Long courseId) {
         Teacher teacher = teacherMapper.convertDTOToEntity(teacherDTO);
@@ -57,6 +58,7 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
         );
     }
 
+    // Add a students to a course
     @PutMapping("/set-student")
     ResponseEntity<CourseDTO> updateCourseTeacher(@RequestBody StudentDTO studentDTO, @RequestParam Long courseId) {
         Student student = studentMapper.convertDTOToEntity(studentDTO);
@@ -68,6 +70,13 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
                         )
                 )
         );
+    }
+
+    // Delete a student from a course
+    @DeleteMapping("/delete-student/{studentId}/{courseId}")
+    ResponseEntity<Void> deleteStudentFromCourse(@PathVariable Long studentId,@PathVariable Long courseId) {
+        service.deleteStudentFromCourse(studentId, courseId);
+        return ResponseEntity.ok().build();
     }
     
     // get all students of a course

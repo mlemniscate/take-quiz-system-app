@@ -24,7 +24,6 @@ public class Teacher extends User{
         this.courses = courses;
     }
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "teacher_id")
+    @OneToMany(mappedBy = "teacher",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Course> courses = new ArrayList<>();
 }

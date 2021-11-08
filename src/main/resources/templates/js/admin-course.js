@@ -36,6 +36,7 @@ $(document).ready(function () {
     getAllActiveTeachersRequest();
     for (let i = 0; i < allActiveTeachers.length; i++) {
       const teacher = allActiveTeachers[i];
+      if (course.teacher == null) course.teacher = { id: -1 };
       $('#teachersContainerModal').append(getTeacherAddModalHTML(teacher));
     }
     $('#editTeacherModal').modal('hide');
@@ -80,6 +81,7 @@ $(document).ready(function () {
 
 // Funcitons
 // --------------------------------------------------------------------------------------------
+
 // show course first info
 function showCourse() {
   console.log(course['startDate']);
@@ -112,6 +114,17 @@ endDateInput.addEventListener('focus', (event) => {
 // Ajax
 // --------------------------------------------------------------------------------------------------
 
+// Delete student
+function deleteStudent(id) {
+  $.ajax({
+    type: 'DELETE',
+    url: `http://localhost:8080/course/delete-student/${id}/${course.id}`,
+    success: function (response) {
+      location.reload();
+    },
+  });
+}
+
 // update course teacher
 function updateCourseTeacher(teacher) {
   $.ajax({
@@ -120,7 +133,6 @@ function updateCourseTeacher(teacher) {
     contentType: 'application/json',
     data: teacher,
     success: function (response) {
-      alert('تغییرات با موفقیت ثبت شد.');
       location.reload();
     },
   });
@@ -134,7 +146,6 @@ function updateCourseStudent(student) {
     contentType: 'application/json',
     data: student,
     success: function (response) {
-      alert('تغییرات با موفقیت ثبت شد.');
       location.reload();
     },
   });
@@ -166,13 +177,13 @@ function findCourseById(id) {
 
 // update course
 function updateCourse() {
+  console.log(course);
   $.ajax({
     type: 'PUT',
     url: 'http://localhost:8080/course',
     contentType: 'application/json',
     data: JSON.stringify(course),
     success: function (response) {
-      alert('تغییرات با موفقیت ثبت شد.');
       location.reload();
     },
   });
@@ -240,19 +251,51 @@ function getTeacherAddModalHTML(teacher) {
 </li>`;
 }
 
-function getStudentCardHTML(student) {
-  return `<div class="d-flex justify-content-between align-items-center my-4">
-  <div class="d-flex align-items-end">
-    <div
-      class="bg-white rounded-circle position-relative"
-      style="width: 50px; height: 50px"
-    ></div>
-    <p class="mx-3"><b>${student.firstName} ${student.lastName}</b></p>
-  </div>
-  <div>
-    <button class="btn btn-danger">
+function getStudentCardHTML(user) {
+  return `<div class="card mb-4" style="width: 25rem; justify-self: center">
+  <div class="card-body">
+    <div class="card-title d-flex align-items-center">
+      <div
+        class="bg-secondary rounded-circle position-relative"
+        style="width: 60px; height: 50px"
+      >
+        <span
+          class="
+            position-absolute
+            top-10
+            start-90
+            translate-middle
+            p-2
+            bg-${user.isActive ? 'success' : 'danger'}
+            border border-light
+            rounded-circle
+          "
+        >
+          <span class="visually-hidden">New alerts</span>
+        </span>
+      </div>
+      <div class="d-flex justify-content-between w-100">
+        <h5 class="mx-3">${user.firstName} ${user.lastName}</h5>
+        <h5 class="mx-3 float-end"><i class="fas fa-${
+          user.gender == 'MALE' ? 'male' : 'female'
+        } fa-2x"></i></h5>
+      </div>
+    </div>
+    <div class="d-flex">
+      <p class="mx-1">ایمیل:</p>
+      <p>${user.email}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+      <h6 class="h5">${user.role == 'STUDENT' ? 'دانشجو' : 'استاد'}</h6>
+      <button onclick="deleteStudent(${user.id})" class="btn btn-danger">
       <i class="fas fa-user-minus"></i> حذف دانشجو
-    </button>
+      </button>
+    </div>
   </div>
-</div><hr/>`;
+</div>`;
+}
+{
+  /* <button onclick="deleteStudent(${student.id})" class="btn btn-danger">
+  <i class="fas fa-user-minus"></i> حذف دانشجو
+</button>; */
 }

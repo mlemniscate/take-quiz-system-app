@@ -40,6 +40,9 @@ public class Course extends BaseEntity<Long> {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students = new ArrayList<>();
 
+    @OneToMany(mappedBy = "course")
+    private List<Quiz> quizzes;
+
     @Builder
     public Course(Long id, String title, String startDate, String endDate, Teacher teacher, List<Student> students) {
         super(id);

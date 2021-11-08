@@ -135,35 +135,7 @@ function ajaxForAddCourse(course) {
 
 // Ajax for getting teachers to show
 
-// Add teacher to course btn click
-function addTeacher(courseId) {
-  $('#addTeacherToCourseModalBody').html('');
-  for (let userIndex = 0; userIndex < users.length; userIndex++) {
-    const user = users[userIndex];
-    if (user.role == 'TEACHER') {
-      $('#addTeacherToCourseModalBody').append(getTeacherAddModalHTML(user));
-    }
-  }
-  $('#addTeacherToCourseModal').modal('hide');
-  $('#addTeacherToCourseModal').modal('show');
-}
-
 // Get HTML Strings
-function getTeacherAddModalHTML(teacher) {
-  return `<div>
-  <div class="form-check">
-    <input
-      class="form-check-input"
-      type="radio"
-      name="teacherRadio"
-      id="${teacher.username}"
-    />
-    <label class="form-check-label" for="teacherRadio${teacher.username}">
-      ${teacher.firstName} ${teacher.lastName}
-    </label>
-  </div>
-</div>`;
-}
 function getShowCourseHTML(course) {
   return `<div class="card mb-4" style="width: 18rem; justify-self: center">
   <div class="card-body">

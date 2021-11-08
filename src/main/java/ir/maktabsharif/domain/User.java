@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = User.TABLE_NAME)
 public class User extends BaseEntity<Long> {
     public static final String TABLE_NAME = "users";

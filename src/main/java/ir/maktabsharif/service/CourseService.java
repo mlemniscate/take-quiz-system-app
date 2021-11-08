@@ -16,4 +16,6 @@ public interface CourseService extends BaseService<Course, Long> {
     Course saveTeacherToCourse(Teacher teacher, Long courseId);
 
     Course saveStudentsToCourse(Student students, Long courseId);
+
+    void deleteStudentFromCourse(Long studentId, Long courseId);
 }

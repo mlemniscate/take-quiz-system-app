@@ -72,7 +72,6 @@ public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK ext
     public ResponseEntity<D> update(@RequestBody D d) {
         if(d.getId() == null) return ResponseEntity.badRequest().build();
         E e = mapper.convertDTOToEntity(d);
-        e.setId(d.getId());
         E entity = service.saveNotSecure(e);
         return ResponseEntity.ok(mapper.convertEntityToDTO(entity));
     }
