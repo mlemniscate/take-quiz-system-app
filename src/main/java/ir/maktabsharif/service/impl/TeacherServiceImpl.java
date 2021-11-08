@@ -7,6 +7,7 @@ import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.repository.TeacherRepository;
 import ir.maktabsharif.repository.UserRepository;
 import ir.maktabsharif.service.TeacherService;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +37,12 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher, Long, TeacherRe
     @Override
     public List<Teacher> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Teacher findByUsername(String username) throws NotFoundException {
+        Optional<Teacher> teacherOptional = repository.findByUsername(username);
+        if(teacherOptional.isPresent()) return teacherOptional.get();
+        else throw new NotFoundException("There is not any teacher with this username");
     }
 }

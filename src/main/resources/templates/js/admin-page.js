@@ -136,6 +136,7 @@ function ajaxForAddCourse(course) {
 // Ajax for getting teachers to show
 
 // Get HTML Strings
+// Get Course HTML
 function getShowCourseHTML(course) {
   return `<div class="card mb-4" style="width: 18rem; justify-self: center">
   <div class="card-body">

@@ -46,7 +46,6 @@ $(document).ready(function () {
       contentType: 'application/json',
       data: values,
       success: function (response) {
-        console.log(response);
         if (response == 'IS_NOT_ACTIVE') {
           $('#userIsNotActiveAlert').removeClass('d-none');
           setTimeout(function () {
@@ -57,6 +56,8 @@ $(document).ready(function () {
           window.location.href = 'admin-page.html';
         } else if (response == 'STUDENT') {
         } else if (response == 'TEACHER') {
+          sessionStorage.setItem('username', $('#usernameLogin').val());
+          window.location.href = 'teacher-page.html';
         } else if (response == 'WRONG_PASSWORD') {
           $('#userWrongPasswordAlert').removeClass('d-none');
           setTimeout(function () {

@@ -8,6 +8,8 @@ import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.TeacherService;
 import ir.maktabsharif.service.dto.TeacherDTO;
 import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
+import javassist.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,6 +28,15 @@ public class TeacherController extends BaseRestFul<Teacher, TeacherDTO, Long, Te
     SignUpStatus newTeacher(@RequestBody Teacher newTeacher) {
         newTeacher.setRole(Role.TEACHER);
         return service.save(newTeacher);
+    }
+
+    @GetMapping("/get-by-username")
+    ResponseEntity<TeacherDTO> findByUsername(@RequestParam String username) throws NotFoundException {
+        return ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        service.findByUsername(username)
+                )
+        );
     }
 
     @GetMapping("/get-all")
