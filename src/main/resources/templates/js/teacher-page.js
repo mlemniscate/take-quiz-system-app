@@ -3,9 +3,10 @@ let teacher;
 
 // -------------------------------------------------------------------------------------
 // Page loads
-// ajaxGetCoursesAndShow('');
 // Teacher loads
 ajaxGetTeacherByUsername();
+// Course loads
+ajaxGetCoursesAndShow();
 
 // -------------------------------------------------------------------------------------
 // functions for Navbar
@@ -16,26 +17,8 @@ $('#logoutItem').click((event) => {
   }
 });
 
-// ajax for get courses and show them
-function ajaxGetCoursesAndShow(url) {
-  $.ajax({
-    type: 'GET',
-    url: url,
-    async: false,
-    success: function (response) {
-      courses = response;
-      $('#courseContainer').html('');
-      for (let courseIndex = 0; courseIndex < response.length; courseIndex++) {
-        const element = response[courseIndex];
-        let html = getShowCourseHTML(element);
-        $('#courseContainer').append(html);
-      }
-    },
-  });
-}
-
 // ajax for get teacher
-function ajaxGetTeacherByUsername(url) {
+function ajaxGetTeacherByUsername() {
   $.ajax({
     type: 'GET',
     url: `http://localhost:8080/teacher/get-by-username?username=${sessionStorage.getItem(
@@ -45,6 +28,24 @@ function ajaxGetTeacherByUsername(url) {
     success: function (response) {
       teacher = response;
       console.log(teacher);
+    },
+  });
+}
+
+// ajax for get courses and show them
+function ajaxGetCoursesAndShow(url) {
+  $.ajax({
+    type: 'GET',
+    url: `http://localhost:8080/course/get-teacher-courses/${teacher.id}`,
+    async: false,
+    success: function (response) {
+      courses = response;
+      $('#courseContainer').html('');
+      for (let courseIndex = 0; courseIndex < response.length; courseIndex++) {
+        const element = response[courseIndex];
+        let html = getShowCourseHTML(element);
+        $('#courseContainer').append(html);
+      }
     },
   });
 }

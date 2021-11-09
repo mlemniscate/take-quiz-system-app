@@ -81,4 +81,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
             repository.save(courseOptional.get());
         }
     }
+
+    @Override
+    public List<Course> findTeacherCourses(Long teacherId) {
+        return repository.findCourseByTeacherId(teacherId);
+    }
 }

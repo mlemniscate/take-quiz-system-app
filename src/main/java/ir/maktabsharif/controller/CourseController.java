@@ -88,4 +88,14 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
         )).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Get teacher courses
+    @GetMapping("/get-teacher-courses/{teacherId}")
+    ResponseEntity<List<CourseDTO>> findAllTeacherCourses(@PathVariable Long teacherId) {
+        return ResponseEntity.ok(
+                mapper.convertListEntityToDTO(
+                        service.findTeacherCourses(teacherId)
+                )
+        );
+    }
+
 }
