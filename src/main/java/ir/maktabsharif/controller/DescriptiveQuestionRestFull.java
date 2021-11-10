@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/descriptive-question")
 @CrossOrigin
-public class DescriptiveQuestionController extends BaseQuestionController<DescriptiveQuestion,
+public class DescriptiveQuestionRestFull extends BaseQuestionRestFull<DescriptiveQuestion,
         DescriptiveQuestionDTO, DescriptiveQuestionService, DescriptiveQuestionMapper> {
 
-    public DescriptiveQuestionController(DescriptiveQuestionService service, DescriptiveQuestionMapper mapper) {
+    public DescriptiveQuestionRestFull(DescriptiveQuestionService service, DescriptiveQuestionMapper mapper) {
         super(service, mapper);
     }
 }

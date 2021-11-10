@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/multi-choice-question")
 @CrossOrigin
-public class MultiChoiceQuestionController extends BaseQuestionController<MultiChoiceQuestion,
+public class MultiChoiceQuestionRestFull extends BaseQuestionRestFull<MultiChoiceQuestion,
         MultiChoiceQuestionDTO, MultiChoiceQuestionService, MultiChoiceQuestionMapper> {
 
-    public MultiChoiceQuestionController(MultiChoiceQuestionService service, MultiChoiceQuestionMapper mapper) {
+    public MultiChoiceQuestionRestFull(MultiChoiceQuestionService service, MultiChoiceQuestionMapper mapper) {
         super(service, mapper);
     }
 }

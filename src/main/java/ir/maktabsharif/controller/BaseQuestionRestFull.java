@@ -8,10 +8,10 @@ import ir.maktabsharif.service.dto.BaseQuestionDTO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
-public class BaseQuestionController<E extends BaseQuestion, D extends BaseQuestionDTO, S extends BaseQuestionService<E>,
+public class BaseQuestionRestFull<E extends BaseQuestion, D extends BaseQuestionDTO, S extends BaseQuestionService<E>,
         M extends BaseQuestionMapper<E, D>> extends BaseRestFul<E, D, Long, S, M> {
 
-    public BaseQuestionController(S service, M mapper) {
+    public BaseQuestionRestFull(S service, M mapper) {
         super(service, mapper);
     }
 }
