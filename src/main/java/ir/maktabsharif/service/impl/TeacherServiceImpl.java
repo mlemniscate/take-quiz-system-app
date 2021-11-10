@@ -34,11 +34,13 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher, Long, TeacherRe
         return SignUpStatus.SUCCESS;
     }
 
+    // get all teachers
     @Override
     public List<Teacher> getAll() {
         return repository.findAll();
     }
 
+    // find a teacher by username
     @Override
     public Teacher findByUsername(String username) throws NotFoundException {
         Optional<Teacher> teacherOptional = repository.findByUsername(username);

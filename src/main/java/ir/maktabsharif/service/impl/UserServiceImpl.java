@@ -57,6 +57,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
                 );
     }
 
+    // find user and set userDTOs fields to user and save it
     @Override
     public void editUser(UserWithoutPasswordDTO userWithoutPasswordDTO) {
         Optional<User> byUsername = repository.findByUsername(userWithoutPasswordDTO.getUsername());

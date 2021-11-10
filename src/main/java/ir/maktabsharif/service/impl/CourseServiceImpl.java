@@ -32,11 +32,13 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         this.quizRepository = quizRepository;
     }
 
+    // find all courses and return
     @Override
     public List<Course> getAllCourses() {
         return repository.findAll();
     }
 
+    // save a course
     @Override
     public Course saveCourse(SaveCourseDTO course) {
         return repository.save(
@@ -48,6 +50,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         );
     }
 
+    // add teacher to a course
     @Override
     public Course saveTeacherToCourse(Teacher teacher, Long courseId) {
         Optional<Course> courseOptional = repository.findById(courseId);
@@ -63,6 +66,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         else throw new RuntimeException("Course Id is wrong!");
     }
 
+    // add a student to course
     @Override
     public Course saveStudentsToCourse(Student student, Long courseId) {
         Optional<Course> course = repository.findById(courseId);
@@ -73,6 +77,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         else throw new RuntimeException("Course Id is wrong!");
     }
 
+    // delete a student from a course
     @Override
     public void deleteStudentFromCourse(Long studentId, Long courseId) {
         Optional<Course> courseOptional = repository.findById(courseId);
@@ -83,6 +88,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         }
     }
 
+    // find teacher all courses
     @Override
     public List<Course> findTeacherCourses(Long teacherId) {
         return repository.findCourseByTeacherId(teacherId);
