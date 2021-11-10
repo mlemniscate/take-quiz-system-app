@@ -177,7 +177,6 @@ function findCourseById(id) {
 
 // update course
 function updateCourse() {
-  console.log(course);
   $.ajax({
     type: 'PUT',
     url: 'http://localhost:8080/course',

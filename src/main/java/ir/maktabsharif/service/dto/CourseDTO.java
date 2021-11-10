@@ -19,5 +19,6 @@ public class CourseDTO extends BaseDTO<Long> {
     private String endDate;
     private TeacherDTO teacher;
     private List<StudentDTO> students;
+    private List<QuizDTO> quizzes;
 
 }

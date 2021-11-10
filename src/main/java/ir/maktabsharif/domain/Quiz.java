@@ -31,4 +31,12 @@ public class Quiz extends BaseEntity<Long> {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Builder
+    public Quiz(Long id, String title, String description, Integer time, Course course) {
+        super(id);
+        this.title = title;
+        this.description = description;
+        this.time = time;
+        this.course = course;
+    }
 }

@@ -2,14 +2,13 @@ package ir.maktabsharif.service.impl;
 
 import ir.maktabsharif.base.service.impl.BaseServiceImpl;
 import ir.maktabsharif.domain.Course;
+import ir.maktabsharif.domain.Quiz;
 import ir.maktabsharif.domain.Student;
 import ir.maktabsharif.domain.Teacher;
-import ir.maktabsharif.repository.AdminRepository;
-import ir.maktabsharif.repository.CourseRepository;
-import ir.maktabsharif.repository.StudentRepository;
-import ir.maktabsharif.repository.TeacherRepository;
+import ir.maktabsharif.repository.*;
 import ir.maktabsharif.service.CourseService;
 import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,12 +22,14 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
     private final AdminRepository adminRepository;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
+    private final QuizRepository quizRepository;
 
-    public CourseServiceImpl(CourseRepository repository, AdminRepository adminRepository, TeacherRepository teacherRepository, StudentRepository studentRepository) {
+    public CourseServiceImpl(CourseRepository repository, AdminRepository adminRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, QuizRepository quizRepository) {
         super(repository);
         this.adminRepository = adminRepository;
         this.teacherRepository = teacherRepository;
         this.studentRepository = studentRepository;
+        this.quizRepository = quizRepository;
     }
 
     @Override
@@ -85,5 +86,28 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
     @Override
     public List<Course> findTeacherCourses(Long teacherId) {
         return repository.findCourseByTeacherId(teacherId);
+    }
+
+    // add and update a quiz in a course
+    @Override
+    public Course addQuiz(Quiz quiz, Long courseId) throws NotFoundException {
+        Optional<Course> courseOptional = repository.findById(courseId);
+        if(quiz.getId() == null) {
+            Quiz quizSaved = quizRepository.save(quiz);
+            if (courseOptional.isPresent()) {
+                courseOptional.get().addQuiz(quizSaved);
+                return repository.save(courseOptional.get());
+            } else throw new NotFoundException("There is no course like this!");
+        } else {
+            Optional<Quiz> quizOptional = quizRepository.findById(quiz.getId());
+            if(quizOptional.isPresent() && courseOptional.isPresent()) {
+                quizOptional.get().setTitle(quiz.getTitle());
+                quizOptional.get().setDescription(quiz.getDescription());
+                quizOptional.get().setTime(quiz.getTime());
+                quizOptional.get().setCourse(courseOptional.get());
+                quizRepository.save(quizOptional.get());
+                return repository.findById(courseId).get();
+            } else throw new NotFoundException("There is no course and quiz like this!");
+        }
     }
 }

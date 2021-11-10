@@ -5,8 +5,12 @@ let teacher;
 // Page loads
 // Teacher loads
 ajaxGetTeacherByUsername();
+
 // Course loads
 ajaxGetCoursesAndShow();
+
+// Show teacher name
+$('#teacherFullName').html(`${teacher.firstName} ${teacher.lastName}`);
 
 // -------------------------------------------------------------------------------------
 // functions for Navbar
@@ -16,6 +20,12 @@ $('#logoutItem').click((event) => {
     window.location.href = 'index.html';
   }
 });
+
+// course details click event
+function showCourseDetails(id) {
+  sessionStorage.setItem('courseId', id);
+  window.location.href = 'teacher-course.html';
+}
 
 // ajax for get teacher
 function ajaxGetTeacherByUsername() {
@@ -27,7 +37,6 @@ function ajaxGetTeacherByUsername() {
     async: false,
     success: function (response) {
       teacher = response;
-      console.log(teacher);
     },
   });
 }

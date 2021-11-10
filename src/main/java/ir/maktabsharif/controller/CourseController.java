@@ -1,7 +1,9 @@
 package ir.maktabsharif.controller;
 
+import io.swagger.annotations.ApiOperation;
 import ir.maktabsharif.base.web.rest.BaseRestFul;
 import ir.maktabsharif.controller.mapper.CourseMapper;
+import ir.maktabsharif.controller.mapper.QuizMapper;
 import ir.maktabsharif.controller.mapper.StudentMapper;
 import ir.maktabsharif.controller.mapper.TeacherMapper;
 import ir.maktabsharif.domain.Course;
@@ -9,9 +11,11 @@ import ir.maktabsharif.domain.Student;
 import ir.maktabsharif.domain.Teacher;
 import ir.maktabsharif.service.CourseService;
 import ir.maktabsharif.service.dto.CourseDTO;
-import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
+import ir.maktabsharif.service.dto.QuizDTO;
 import ir.maktabsharif.service.dto.StudentDTO;
 import ir.maktabsharif.service.dto.TeacherDTO;
+import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
+import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +29,13 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
 
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
+    private final QuizMapper quizMapper;
 
-    public CourseController(CourseService service, CourseMapper mapper, StudentMapper studentMapper, TeacherMapper teacherMapper) {
+    public CourseController(CourseService service, CourseMapper mapper, StudentMapper studentMapper, TeacherMapper teacherMapper, QuizMapper quizMapper) {
         super(service, mapper);
         this.studentMapper = studentMapper;
         this.teacherMapper = teacherMapper;
+        this.quizMapper = quizMapper;
     }
 
     // get all courses
@@ -94,6 +100,17 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
         return ResponseEntity.ok(
                 mapper.convertListEntityToDTO(
                         service.findTeacherCourses(teacherId)
+                )
+        );
+    }
+
+    // Add quiz to course
+    @PostMapping("/add-quiz/{courseId}")
+    @ApiOperation(value = "add a quiz to course")
+    public ResponseEntity<CourseDTO> save(@RequestBody QuizDTO quizDTO, @PathVariable Long courseId) throws NotFoundException {
+        return ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        service.addQuiz(quizMapper.convertDTOToEntity(quizDTO), courseId)
                 )
         );
     }

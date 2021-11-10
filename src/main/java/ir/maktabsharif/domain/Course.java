@@ -52,4 +52,9 @@ public class Course extends BaseEntity<Long> {
         this.teacher = teacher;
         this.students = students;
     }
+
+    public void addQuiz(Quiz quiz) {
+        quizzes.add(quiz);
+        quiz.setCourse(this);
+    }
 }
