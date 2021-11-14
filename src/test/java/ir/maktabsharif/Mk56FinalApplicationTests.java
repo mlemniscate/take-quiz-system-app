@@ -42,16 +42,18 @@ class Mk56FinalApplicationTests {
     void insertData() {
 //        Faker faker = new Faker();
 //        IntStream.range(1, 21).forEach(index -> {
-//            int random = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
-//            Gender gender = random % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-//            Boolean isActive = random % 2 == 0;
+//            int random1 = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+//            int random2 = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+//            Gender gender = random1 % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+//            Boolean isActive = random2 % 2 == 0;
 //            Student student = getStudent(faker, gender, isActive);
 //            studentRepository.save(student);
 //        });
 //        IntStream.range(1, 21).forEach(index -> {
-//            int random = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
-//            Gender gender = random % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-//            Boolean isActive = random % 2 == 0;
+//            int random1 = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+//            int random2 = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+//            Gender gender = random1 % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+//            Boolean isActive = random2 % 2 == 0;
 //            Teacher teacher = getTeacher(faker, gender, isActive);
 //            teacherRepository.save(teacher);
 //        });

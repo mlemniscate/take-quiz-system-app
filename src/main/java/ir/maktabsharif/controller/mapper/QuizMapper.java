@@ -7,5 +7,4 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface QuizMapper extends BaseMapper<Quiz, QuizDTO, Long> {
-
 }

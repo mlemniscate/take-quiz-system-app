@@ -20,5 +20,4 @@ public interface UserMapper extends BaseMapper<User, UserDTO, Long> {
 
     @Mapping(target = "password", ignore = true)
     User convertUserWithoutPasswordToEntity(UserWithoutPasswordDTO withoutPasswordDTO);
-
 }

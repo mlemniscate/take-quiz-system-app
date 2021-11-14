@@ -1,6 +1,9 @@
 package ir.maktabsharif.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -17,7 +20,7 @@ public class DescriptiveQuestion extends BaseQuestion{
     public static final String TABLE_NAME = "descriptive_questions";
 
     @Builder
-    public DescriptiveQuestion(Long id, String question) {
-        super(id, question);
+    public DescriptiveQuestion(Long id, String title, String question, Integer score) {
+        super(id, title, question, score);
     }
 }

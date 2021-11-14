@@ -6,5 +6,4 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface MultiChoiceQuestionMapper extends BaseQuestionMapper<MultiChoiceQuestion, MultiChoiceQuestionDTO> {
-
 }

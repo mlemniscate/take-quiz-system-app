@@ -18,5 +18,4 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
         super(service, mapper);
     }
 
-
 }

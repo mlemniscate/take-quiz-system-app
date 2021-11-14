@@ -4,6 +4,8 @@ import ir.maktabsharif.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,12 +33,25 @@ public class Quiz extends BaseEntity<Long> {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private List<QuizQuestion> quizQuestions = new ArrayList<>();
+
+    @Transient
+    private Integer totalScore;
+
     @Builder
-    public Quiz(Long id, String title, String description, Integer time, Course course) {
+    public Quiz(Long id, String title, String description, Integer time, Course course, List<QuizQuestion> quizQuestions, Integer totalScore) {
         super(id);
         this.title = title;
         this.description = description;
         this.time = time;
         this.course = course;
+        this.quizQuestions = quizQuestions;
+        this.totalScore = totalScore;
+    }
+
+    public void addQuizQuestion(QuizQuestion quizQuestion) {
+        quizQuestions.add(quizQuestion);
+        quizQuestion.setQuiz(this);
     }
 }

@@ -23,8 +23,9 @@ public class MultiChoiceQuestion extends BaseQuestion{
     private List<String> options;
 
     @Builder
-    public MultiChoiceQuestion(Long id, String question, Integer trueOption, List<String> options) {
-        super(id, question);
+
+    public MultiChoiceQuestion(Long id, String title, String question, Integer score, Integer trueOption, List<String> options) {
+        super(id, title, question, score);
         this.trueOption = trueOption;
         this.options = options;
     }

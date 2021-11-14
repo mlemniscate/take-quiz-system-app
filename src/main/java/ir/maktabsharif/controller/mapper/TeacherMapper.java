@@ -7,5 +7,4 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface TeacherMapper extends BaseMapper<Teacher, TeacherDTO, Long> {
-
 }

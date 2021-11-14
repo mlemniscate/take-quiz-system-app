@@ -7,5 +7,4 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin, AdminDTO, Long> {
-
 }

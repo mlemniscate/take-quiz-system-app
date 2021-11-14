@@ -12,6 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BaseQuestionDTO extends BaseDTO<Long> {
 
+    private String title;
     private String question;
+    private Integer score;
 
 }
