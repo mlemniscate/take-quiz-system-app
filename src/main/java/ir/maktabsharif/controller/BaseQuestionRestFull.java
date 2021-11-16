@@ -41,13 +41,19 @@ public class BaseQuestionRestFull<E extends BaseQuestion, D extends BaseQuestion
     @PostMapping("/{courseId}/{teacherId}/{quizId}")
     public ResponseEntity<D> saveQuestion(
             @PathVariable Long courseId,@PathVariable Long teacherId, @PathVariable Long quizId,
-            @RequestBody D questionDTO, @RequestParam Integer score
+            @RequestBody D questionDTO
     ) {
         E question = mapper.convertDTOToEntity(questionDTO);
         return ResponseEntity.ok(
                 mapper.convertEntityToDTO(
-                        service.saveNotSecure(question, courseId, teacherId, quizId, score)
+                        service.saveNotSecure(question, courseId, teacherId, quizId)
                 )
         );
+    }
+
+    @DeleteMapping("/delete/{quizId}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long quizId, @RequestBody D questionDTO){
+        service.deleteNotSecure(quizId, mapper.convertDTOToEntity(questionDTO));
+        return ResponseEntity.ok().build();
     }
 }

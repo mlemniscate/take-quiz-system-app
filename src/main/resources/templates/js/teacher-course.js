@@ -101,6 +101,12 @@ function showQuizzes() {
   }
 }
 
+// go to quiz questions
+function showQuizQuestions(quiz) {
+  sessionStorage.setItem('quiz', JSON.stringify(quiz));
+  window.location.href = 'teacher-question.html';
+}
+
 // Get HTML
 function getQuizHTML(quiz) {
   return `<div class="card mb-4" style="width: 18rem; justify-self: center">
@@ -135,7 +141,7 @@ function getQuizHTML(quiz) {
     </div>
     <button 
       class="btn btn-primary open-edit-user-modal my-3 w-100"
-      onclick="showQuizDetails(${quiz.id})"
+      onclick='showQuizQuestions(${JSON.stringify(quiz)})'
     >
       <i class="fas fa-edit"></i> ویرایش سوالات آزمون
     </button>

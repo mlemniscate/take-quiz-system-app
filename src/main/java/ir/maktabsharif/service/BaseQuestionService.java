@@ -8,7 +8,9 @@ import java.util.List;
 public interface BaseQuestionService<E extends BaseQuestion> extends BaseService<E, Long> {
     List<E> findByCourseIdAndTeacherId(Long courseId, Long teacherId);
 
-    E saveNotSecure(E question, Long courseId, Long teacherId, Long quizId, Integer score);
+    E saveNotSecure(E question, Long courseId, Long teacherId, Long quizId);
 
     List<E> findAllByQuizId(Long quizId);
+
+    void deleteNotSecure(Long quizId, E question);
 }

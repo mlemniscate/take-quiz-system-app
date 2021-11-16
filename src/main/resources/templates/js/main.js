@@ -69,12 +69,6 @@ $(document).ready(function () {
             $('#userWrongUsernameAlert').addClass('d-none');
           }, 5000);
         }
-        // else {
-        //   $('#userSignUpSuccessAlert').removeClass('d-none');
-        //   setTimeout(function () {
-        //     $('#userSignUpSuccessAlert').addClass('d-none');
-        //   }, 10000);
-        // }
       },
     });
   });

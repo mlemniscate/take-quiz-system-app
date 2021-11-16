@@ -24,6 +24,7 @@ $('#logoutItem').click((event) => {
 // course details click event
 function showCourseDetails(id) {
   sessionStorage.setItem('courseId', id);
+  sessionStorage.setItem('teacherId', teacher.id);
   window.location.href = 'teacher-course.html';
 }
 
