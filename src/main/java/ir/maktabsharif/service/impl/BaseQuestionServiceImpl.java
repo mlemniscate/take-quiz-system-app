@@ -32,6 +32,7 @@ public class BaseQuestionServiceImpl<E extends BaseQuestion, R extends BaseQuest
         return repository.findByCourseIdAndTeacherId(courseId, teacherId);
     }
 
+    //TODO write comment
     @Override
     @Transactional
     public E saveNotSecure(E question, Long courseId, Long teacherId, Long quizId) {
@@ -89,6 +90,7 @@ public class BaseQuestionServiceImpl<E extends BaseQuestion, R extends BaseQuest
         } else return null;
     }
 
+    // TODO write comment
     @Override
     public void deleteNotSecure(Long quizId, E question) {
         Optional<Quiz> quizOptional = quizRepository.findById(quizId);

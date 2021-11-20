@@ -83,12 +83,18 @@
                   <i class="fa fa-plus" aria-hidden="true"></i>
                   &nbsp;افزودن سوال جدید
                 </button>
-                <button id="addQuestionButtonFromArchive" class="btn btn-info">
+                <button id="addQuestionButtonFromArchive" 
+                  class="btn btn-info" 
+                  data-bs-toggle="modal"
+                  data-bs-target="#questionBankModal">
                   <i class="fas fa-inbox" aria-hidden="true"></i>
                   &nbsp;افزودن سوال از بانک سوالات
                 </button>
               </div>
+              
             </div>
+
+            <!-- Add Questions -->
             <div id="multiQuestionAddBar" class="w-50 m-auto d-none">
               <input id="multiQuestionIdInput" class="d-none">
               <div class="input-group mb-3">
@@ -261,7 +267,7 @@
       </div>
     </div>
 
-    <!-- Modal adding quiz -->
+    <!-- Modal taking question type -->
     <div
       class="modal fade"
       id="addQuestionTypeModal"
@@ -292,6 +298,36 @@
                 ------------ <br>
                 -------
               </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for adding question from question bank -->
+    <div
+      class="modal fade"
+      id="questionBankModal"
+      tabindex="-1"
+      aria-labelledby="questionBankModal"
+      aria-hidden="true"
+      style="direction: rtl"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content bg-secondary" >
+          <div id="questionContainerModal" class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              انصراف
+            </button>
+            <button id="saveAddedQuestionFromQB" type="button" class="btn btn-primary">
+              افزودن سوال
             </button>
           </div>
         </div>

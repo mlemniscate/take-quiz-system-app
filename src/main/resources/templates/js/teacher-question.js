@@ -2,6 +2,7 @@ let quiz = JSON.parse(sessionStorage.getItem('quiz'));
 let multiQuestions;
 let descriptiveQuestions;
 let optionNumberCounter = 3;
+let questionBank = [];
 // function for the first time page loaded
 showQuiz();
 ajaxGetQuestion();
@@ -85,6 +86,36 @@ $('#descQuestionSaveButton').click((event) => {
   }
 });
 
+// question bank open modal click
+$('#addQuestionButtonFromArchive').click(function () {
+  $('#questionContainerModal').html('');
+  questionBank = [];
+  ajaxGetQuestionBank('descriptive-question');
+  ajaxGetQuestionBank('multi-choice-question');
+  for (let i = 0; i < multiQuestions.length; i++) {
+    const element = multiQuestions[i];
+    questionBank = questionBank.filter((item) => item.id != element.id);
+  }
+  for (let i = 0; i < descriptiveQuestions.length; i++) {
+    const element = descriptiveQuestions[i];
+    questionBank = questionBank.filter((item) => item.id != element.id);
+  }
+  for (let i = 0; i < questionBank.length; i++) {
+    const question = questionBank[i];
+    $('#questionContainerModal').append(getQuestionBankItemsHTML(question));
+  }
+  console.log(questionBank);
+});
+
+// question added from question bank
+$('#saveAddedQuestionFromQB').click(function () {
+  let question = JSON.parse($(`input[name=questionBankRadio]:checked`).val());
+  question.score = $(`#questionBankScoreInput${question.id}`).val();
+  let questionType = question.questionType;
+  delete question.questionType;
+  ajaxSaveQuestion(question, questionType);
+});
+
 // edit button of multi questions
 function editQuestionClick(element) {
   let question = $(element).data('question');
@@ -128,6 +159,14 @@ function deleteOptionButton(button) {
   optionNumberCounter--;
 }
 
+// delete question from quiz
+function deleteQuestion(questionId) {
+  let question = {
+    id: questionId,
+  };
+  ajaxDeleteQuestion(question);
+}
+
 // Ajax
 // get course and show it
 // ajax for get teacher
@@ -152,12 +191,42 @@ function ajaxGetQuestion() {
   });
 }
 
+// ajax for getting question bank
+function ajaxGetQuestionBank(questionType) {
+  $.ajax({
+    type: 'GET',
+    url: `http://localhost:8080/${questionType}/${sessionStorage.getItem(
+      'courseId'
+    )}/${sessionStorage.getItem('teacherId')}`,
+    async: false,
+    success: function (response) {
+      response = response.map((obj) => ({ ...obj, questionType }));
+      questionBank.push(...response);
+    },
+  });
+}
+
+// ajax for saving question
 function ajaxSaveQuestion(question, questionType) {
   $.ajax({
     type: 'POST',
     url: `http://localhost:8080/${questionType}/
     ${sessionStorage.getItem('courseId')}/
     ${sessionStorage.getItem('teacherId')}/
+    ${quiz.id}`,
+    contentType: 'application/json',
+    data: JSON.stringify(question),
+    async: false,
+    success: function (response) {
+      location.reload();
+    },
+  });
+}
+
+function ajaxDeleteQuestion(question) {
+  $.ajax({
+    type: 'DELETE',
+    url: `http://localhost:8080/descriptive-question/delete/
     ${quiz.id}`,
     contentType: 'application/json',
     data: JSON.stringify(question),
@@ -294,4 +363,40 @@ function getOptionHTML(number) {
   <input type="text" class="form-control" id="questionOptionInput">
   <button onclick="deleteOptionButton(this)" class="btn btn-danger"><i class="fas fa-minus    "></i></button>
 </div>`;
+}
+
+function getQuestionBankItemsHTML(question) {
+  return `<li class="list-group-item bg-secondary  d-flex">
+  <div class="w-50">
+  <input
+  id='questionInputRadio${question.id}'
+  class="form-check-input me-1"
+  type="radio"
+  name="questionBankRadio"
+  value='${JSON.stringify(question)}'
+  checked
+/>
+<label class="w-100 h-100 form-check-label" for="questionInputRadio${
+    question.id
+  }">
+${question.id}: ${question.title}</label>
+  </div>
+
+  <div class="input-group w-50">
+              <span class="input-group-text rounded" id="basic-addon1"
+                >نمره</span
+              >
+              <input
+                id='questionBankScoreInput${question.id}'
+                type="number"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                onkeydown="return false"
+                value='1'
+                step="1"
+                min="1"
+              />
+            </div>
+</li>`;
 }
