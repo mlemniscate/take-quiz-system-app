@@ -6,8 +6,12 @@ import ir.maktabsharif.domain.Student;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.StudentService;
+import ir.maktabsharif.service.dto.CourseDTO;
 import ir.maktabsharif.service.dto.StudentDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -23,5 +27,7 @@ public class StudentController extends BaseRestFul<Student, StudentDTO, Long, St
         newStudent.setRole(Role.STUDENT);
         return service.save(newStudent);
     }
+
+
 
 }

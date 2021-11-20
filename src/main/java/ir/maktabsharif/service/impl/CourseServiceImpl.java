@@ -116,4 +116,13 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
             } else throw new NotFoundException("There is no course and quiz like this!");
         }
     }
+
+    @Override
+    public List<Course> findStudentCourses(Long id) {
+        Optional<Student> studentOptional = studentRepository.findById(id);
+        if(studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            return student.getCourses();
+        } else return null;
+    }
 }

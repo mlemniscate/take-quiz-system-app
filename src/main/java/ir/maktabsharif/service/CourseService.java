@@ -24,4 +24,6 @@ public interface CourseService extends BaseService<Course, Long> {
     List<Course> findTeacherCourses(Long teacherId);
 
     Course addQuiz(Quiz quiz, Long courseId) throws NotFoundException;
+
+    List<Course> findStudentCourses(Long id);
 }

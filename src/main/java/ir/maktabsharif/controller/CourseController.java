@@ -14,6 +14,7 @@ import ir.maktabsharif.service.dto.CourseDTO;
 import ir.maktabsharif.service.dto.QuizDTO;
 import ir.maktabsharif.service.dto.StudentDTO;
 import ir.maktabsharif.service.dto.TeacherDTO;
+import ir.maktabsharif.service.dto.extra.CourseWithoutStudentsDTO;
 import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
 import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -111,6 +112,15 @@ public class CourseController extends BaseRestFul<Course, CourseDTO, Long, Cours
         return ResponseEntity.ok(
                 mapper.convertEntityToDTO(
                         service.addQuiz(quizMapper.convertDTOToEntity(quizDTO), courseId)
+                )
+        );
+    }
+
+    @GetMapping("/all-student-courses/{id}")
+    public ResponseEntity<List<CourseWithoutStudentsDTO>> findAllStudentCourses(@PathVariable Long id){
+        return ResponseEntity.ok(
+                mapper.convertListEntityToCourseWithoutStudentDTO(
+                        service.findStudentCourses(id)
                 )
         );
     }
