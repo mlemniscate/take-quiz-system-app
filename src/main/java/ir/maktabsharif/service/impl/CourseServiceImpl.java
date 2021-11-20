@@ -1,10 +1,7 @@
 package ir.maktabsharif.service.impl;
 
 import ir.maktabsharif.base.service.impl.BaseServiceImpl;
-import ir.maktabsharif.domain.Course;
-import ir.maktabsharif.domain.Quiz;
-import ir.maktabsharif.domain.Student;
-import ir.maktabsharif.domain.Teacher;
+import ir.maktabsharif.domain.*;
 import ir.maktabsharif.repository.*;
 import ir.maktabsharif.service.CourseService;
 import ir.maktabsharif.service.dto.extra.SaveCourseDTO;
@@ -23,13 +20,15 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
     private final QuizRepository quizRepository;
+    private final StudentQuizRepository studentQuizRepository;
 
-    public CourseServiceImpl(CourseRepository repository, AdminRepository adminRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, QuizRepository quizRepository) {
+    public CourseServiceImpl(CourseRepository repository, AdminRepository adminRepository, TeacherRepository teacherRepository, StudentRepository studentRepository, QuizRepository quizRepository, StudentQuizRepository studentQuizRepository) {
         super(repository);
         this.adminRepository = adminRepository;
         this.teacherRepository = teacherRepository;
         this.studentRepository = studentRepository;
         this.quizRepository = quizRepository;
+        this.studentQuizRepository = studentQuizRepository;
     }
 
     // find all courses and return
@@ -101,6 +100,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
         if(quiz.getId() == null) {
             Quiz quizSaved = quizRepository.save(quiz);
             if (courseOptional.isPresent()) {
+                courseOptional.get().getStudents().forEach(student ->
+                        studentQuizRepository.save(new StudentQuiz(true, null, quiz, student))
+                );
                 courseOptional.get().addQuiz(quizSaved);
                 return repository.save(courseOptional.get());
             } else throw new NotFoundException("There is no course like this!");
