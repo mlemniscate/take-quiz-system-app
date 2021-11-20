@@ -5,9 +5,10 @@ import ir.maktabsharif.controller.mapper.QuizMapper;
 import ir.maktabsharif.domain.Quiz;
 import ir.maktabsharif.service.QuizService;
 import ir.maktabsharif.service.dto.QuizDTO;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/quiz")
@@ -16,6 +17,15 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
 
     public QuizController(QuizService service, QuizMapper mapper) {
         super(service, mapper);
+    }
+
+    @GetMapping("/all-student-active-quizzes/{id}")
+    public ResponseEntity<List<QuizDTO>> getAllStudentActiveQuizzes(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                mapper.convertListEntityToDTO(
+                        service.findAllStudentActiveQuizzes(id)
+                )
+        );
     }
 
 }
