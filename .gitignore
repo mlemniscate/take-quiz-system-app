@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Bootstrap ###
+/src/main/resources/templates/node_modules
+/src/main/resources/css
