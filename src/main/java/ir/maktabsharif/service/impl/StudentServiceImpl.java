@@ -31,4 +31,9 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, Long, StudentRe
         repository.save(newStudent);
         return SignUpStatus.SUCCESS;
     }
+
+    @Override
+    public Student findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 }

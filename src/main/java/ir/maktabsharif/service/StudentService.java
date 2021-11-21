@@ -6,4 +6,6 @@ import ir.maktabsharif.domain.enums.SignUpStatus;
 
 public interface StudentService extends BaseService<Student, Long> {
     SignUpStatus save(Student newStudent);
+
+    Student findByUsername(String username);
 }

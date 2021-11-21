@@ -6,12 +6,10 @@ import ir.maktabsharif.domain.Student;
 import ir.maktabsharif.domain.enums.Role;
 import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.StudentService;
-import ir.maktabsharif.service.dto.CourseDTO;
 import ir.maktabsharif.service.dto.StudentDTO;
+import javassist.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -28,6 +26,13 @@ public class StudentController extends BaseRestFul<Student, StudentDTO, Long, St
         return service.save(newStudent);
     }
 
-
+    @GetMapping("/get-by-username")
+    ResponseEntity<StudentDTO> findByUsername(@RequestParam String username) throws NotFoundException {
+        return ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        service.findByUsername(username)
+                )
+        );
+    }
 
 }

@@ -55,6 +55,8 @@ $(document).ready(function () {
           sessionStorage.setItem('username', $('#usernameLogin').val());
           window.location.href = 'admin-page.html';
         } else if (response == 'STUDENT') {
+          sessionStorage.setItem('username', $('#usernameLogin').val());
+          window.location.href = 'student-page.html';
         } else if (response == 'TEACHER') {
           sessionStorage.setItem('username', $('#usernameLogin').val());
           window.location.href = 'teacher-page.html';
