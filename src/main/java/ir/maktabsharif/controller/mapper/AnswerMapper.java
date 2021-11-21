@@ -7,4 +7,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface AnswerMapper extends BaseMapper<Answer, AnswerDTO, Long> {
+
 }
