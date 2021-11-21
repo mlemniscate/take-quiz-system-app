@@ -8,9 +8,13 @@ import ir.maktabsharif.repository.StudentQuizRepository;
 import ir.maktabsharif.service.QuizService;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,5 +35,16 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
             if(studentQuiz.getIsActive()) quizzes.add(studentQuiz.getQuiz());
             });
         return quizzes;
+    }
+
+    @Override
+    public LocalDateTime startStudentQuiz(Long studentId, Long quizId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        LocalDateTime time =  (LocalDateTime) session.getAttribute("startQuizTime" + studentId + quizId);
+        Optional<Quiz> quizOptional = repository.findById(quizId);
+        if(time == null && quizOptional.isPresent()) {
+            session.setAttribute("startQuizTime" + studentId + quizId, LocalDateTime.now());
+            return LocalDateTime.now();
+        } else return time;
     }
 }

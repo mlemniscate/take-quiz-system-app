@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = BaseQuestion.TABLE_NAME)
-public abstract class BaseQuestion extends BaseEntity<Long> {
+public class BaseQuestion extends BaseEntity<Long> {
     public static final String TABLE_NAME = "questions";
     public static final String QUESTION = "question";
     public static final String TITLE = "title";

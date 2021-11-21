@@ -5,9 +5,8 @@ import ir.maktabsharif.controller.mapper.AnswerMapper;
 import ir.maktabsharif.domain.Answer;
 import ir.maktabsharif.service.AnswerService;
 import ir.maktabsharif.service.dto.AnswerDTO;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/answer")
@@ -16,5 +15,20 @@ public class AnswerController extends BaseRestFul<Answer, AnswerDTO, Long, Answe
 
     public AnswerController(AnswerService service, AnswerMapper mapper) {
         super(service, mapper);
+    }
+
+    @PostMapping("/{questionId}/{studentId}")
+    public ResponseEntity<AnswerDTO> saveUpdateAnswer(@RequestBody AnswerDTO answerDTO,
+                                                      @PathVariable Long questionId,
+                                                      @PathVariable Long studentId) {
+        return ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        service.saveQuestionAnswer(
+                                mapper.convertDTOToEntity(answerDTO),
+                                questionId,
+                                studentId
+                        )
+                )
+        );
     }
 }

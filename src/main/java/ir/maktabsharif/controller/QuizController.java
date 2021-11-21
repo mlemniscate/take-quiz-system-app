@@ -8,6 +8,8 @@ import ir.maktabsharif.service.dto.QuizDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,5 +29,37 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
                 )
         );
     }
+
+    @GetMapping("/start-student-quiz/{studentId}/{quizId}")
+    public ResponseEntity<LocalDateTime> start(@PathVariable Long studentId, @PathVariable Long quizId, HttpServletRequest request) {
+        return ResponseEntity.ok(service.startStudentQuiz(studentId, quizId, request));
+    }
+
+
+
+//    @PostMapping("/persistMessage")
+//    public String persistMessage(@RequestParam("msg") String msg, HttpServletRequest request) {
+//        @SuppressWarnings("unchecked")
+//        List<String> messages = (List<String>) request.getSession().getAttribute("MY_SESSION_MESSAGES");
+//        if (messages == null) {
+//            messages = new ArrayList<>();
+//            request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
+//        }
+//        messages.add(msg);
+//        request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
+//        return "redirect:/";
+//    }
+//
+//    @GetMapping("/messages")
+//    public List<String> process(HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        @SuppressWarnings("unchecked")
+//        List<String> messages = (List<String>) session.getAttribute("MY_SESSION_MESSAGES");
+//
+//        if (messages == null) {
+//            messages = new ArrayList<>();
+//        }
+//        return messages;
+//    }
 
 }
