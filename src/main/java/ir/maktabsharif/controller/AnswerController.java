@@ -8,6 +8,8 @@ import ir.maktabsharif.service.dto.AnswerDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/answer")
 @CrossOrigin
@@ -17,17 +19,29 @@ public class AnswerController extends BaseRestFul<Answer, AnswerDTO, Long, Answe
         super(service, mapper);
     }
 
-    @PostMapping("/{questionId}/{studentId}")
+    @PostMapping("/{questionId}/{studentId}/{quizId}")
     public ResponseEntity<AnswerDTO> saveUpdateAnswer(@RequestBody AnswerDTO answerDTO,
                                                       @PathVariable Long questionId,
-                                                      @PathVariable Long studentId) {
+                                                      @PathVariable Long studentId,
+                                                      @PathVariable Long quizId) {
         return ResponseEntity.ok(
                 mapper.convertEntityToDTO(
                         service.saveQuestionAnswer(
                                 mapper.convertDTOToEntity(answerDTO),
                                 questionId,
-                                studentId
+                                studentId,
+                                quizId
                         )
+                )
+        );
+    }
+
+    @GetMapping("/{studentId}/{quizId}")
+    public ResponseEntity<List<AnswerDTO>> findAllQuizAnswersByStudent(@PathVariable Long studentId,
+                                                                        @PathVariable Long quizId){
+        return ResponseEntity.ok(
+                mapper.convertListEntityToDTO(
+                        service.findAllQuizAnswersByStudent(studentId, quizId)
                 )
         );
     }

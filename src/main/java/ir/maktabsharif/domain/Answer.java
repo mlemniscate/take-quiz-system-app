@@ -31,4 +31,8 @@ public class Answer extends BaseEntity<Long> {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "question_id")
     private BaseQuestion question;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
 }
