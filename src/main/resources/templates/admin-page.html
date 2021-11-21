@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سیستم برگزاری آزمون آنلاین</title>
     <link
+      type="text/css"
+      rel="stylesheet"
+      href="../lib/jalali_data_picker/jalalidatepicker.min.css"
+    />
+    <link
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
     />
@@ -38,17 +43,17 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a id="signUpItem" class="nav-link" href="#"
+                <a id="showUsersItem" class="nav-link" href="#"
                   ><i class="fas fa-users"></i> مشاهده کاربران</a
                 >
               </li>
               <li class="nav-item">
-                <a id="signUpItem" class="nav-link" href="#"
+                <a id="showCoursesItem" class="nav-link" href="#"
                   ><i class="fas fa-chalkboard-teacher"></i> مشاهده دوره ها</a
                 >
               </li>
               <li class="nav-item">
-                <a id="loginItem" class="nav-link" href="#"
+                <a id="logoutItem" class="nav-link" href="#"
                   ><i class="fas fa-sign-out-alt"></i> خروج</a
                 >
               </li>
@@ -60,7 +65,7 @@
       <!-- Users Showing -->
       <div
         id="usersShowing"
-        class="container mt-5 bg-secondary p-4"
+        class="container mt-5 bg-secondary p-4 rounded"
         style="direction: rtl"
       >
         <div id="searchBar">
@@ -93,8 +98,8 @@
                 aria-label="Default select example"
               >
                 <option value="" selected disabled>جنسیت</option>
-                <option value="m">مرد</option>
-                <option value="w">زن</option>
+                <option value="MALE">مرد</option>
+                <option value="FEMALE">زن</option>
                 <option value="">هر دو گزینه</option>
               </select>
             </div>
@@ -135,12 +140,71 @@
 
         <div id="userContainer" class="d-grid user-container"></div>
       </div>
+
+      <!-- Course Showing -->
+      <div
+        id="courseShowing"
+        class="container mt-5 bg-secondary p-4 d-none rounded"
+        style="direction: rtl"
+      >
+        <div id="addCourseBar">
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col">
+              <input
+                id="courseTitleInput"
+                type="text"
+                class="form-control"
+                placeholder="نام"
+                aria-label="First name"
+                required
+              />
+            </div>
+            <!-- Last Name -->
+            <div class="col">
+              <input
+                data-jdp
+                autocomplete="off"
+                readonly
+                id="startDateInput"
+                type="text"
+                class="form-control"
+                placeholder="تاریخ شروع"
+                aria-label="Last name"
+                value=""
+                required
+              />
+            </div>
+            <!-- Last Name -->
+            <div class="col">
+              <input
+                data-jdp
+                autocomplete="off"
+                readonly
+                id="endDateInput"
+                type="text"
+                value=""
+                class="form-control"
+                placeholder="تاریخ پایان"
+                aria-label="Last name"
+                required
+              />
+            </div>
+            <div class="col-2">
+              <button id="addCourseButton" class="btn btn-primary w-100">
+                <i class="fas fa-plus"></i> افزودن دوره
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <!-- Course Showing Cards -->
+        <div id="courseContainer" class="d-grid course-container"></div>
+      </div>
     </div>
 
     <!-- Modal For Editing Users -->
-    <!-- Button trigger modal -->
-
-    <!-- Modal -->
     <div
       class="modal fade"
       id="editUserModal"
@@ -200,8 +264,8 @@
                   class="form-select"
                   aria-label="Default select example"
                 >
-                  <option value="m">مرد</option>
-                  <option value="w">زن</option>
+                  <option value="MALE">مرد</option>
+                  <option value="FEMALE">زن</option>
                 </select>
               </div>
               <!-- Select Role -->
@@ -233,6 +297,12 @@
       </div>
     </div>
 
+    <!-- Scripts -->
+    <!-- Jalali Date Picker Scripts -->
+    <script
+      type="text/javascript"
+      src="../lib/jalali_data_picker/jalalidatepicker.min.js"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="

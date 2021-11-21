@@ -1,26 +1,33 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.model.Student;
-import ir.maktabsharif.model.enums.Role;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.base.web.rest.BaseRestFul;
+import ir.maktabsharif.controller.mapper.StudentMapper;
+import ir.maktabsharif.domain.Student;
+import ir.maktabsharif.domain.enums.Role;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.StudentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import ir.maktabsharif.service.dto.CourseDTO;
+import ir.maktabsharif.service.dto.StudentDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-public class StudentController {
+@RequestMapping("/student")
+@CrossOrigin
+public class StudentController extends BaseRestFul<Student, StudentDTO, Long, StudentService, StudentMapper> {
 
-    private final StudentService service;
+    public StudentController(StudentService service, StudentMapper mapper) {
+        super(service, mapper);
+    }
 
-    @PostMapping("/student/sign-up")
-    @CrossOrigin
+    @PostMapping("/sign-up")
     SignUpStatus newStudent(@RequestBody Student newStudent) {
         newStudent.setRole(Role.STUDENT);
         return service.save(newStudent);
     }
+
+
 
 }

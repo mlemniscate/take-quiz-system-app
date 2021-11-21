@@ -11477,4 +11477,25 @@ fieldset:disabled .btn {
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
 }
+
+.course-container {
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.height-10 {
+  height: 10rem;
+}
+
+.height-8 {
+  height: 8rems;
+}
+
+.height-6 {
+  height: 10rem;
+}
+
+.height-4 {
+  height: 10rem;
+}
 /*# sourceMappingURL=style.css.map */

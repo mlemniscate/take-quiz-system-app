@@ -1,7 +1,14 @@
+let users;
 $(document).ready(function () {
+  // For the first page load
   ajaxGetUsersAndShow(
     `http://localhost:8080/user/filter-users?firstName=&lastName=&gender=&role=&isActive=`
   );
+  ajaxGetCoursesAndShow('http://localhost:8080/course');
+  // Course
+
+  // -------------------------------------------------------------------------------------
+  // User
   // when admin click on search users
   $('#searchUsers').click((event) => {
     console.log('hello');
@@ -15,7 +22,6 @@ $(document).ready(function () {
     }&role=${role == null ? '' : role}&isActive=${
       isActive == null ? '' : isActive
     }`;
-    console.log(url);
     ajaxGetUsersAndShow(url);
   });
 
@@ -37,7 +43,8 @@ $(document).ready(function () {
     $('#roleEditInput').val(dataRole);
   });
 
-  $('#editUserModal').on('hidden.bs.modal', function () {
+  // when admin click for save user changes
+  $('#saveEditUser').click((event) => {
     let user = `{
       "username" : "${$('#usernameEditInput').val()}",
       "firstName" : "${$('#firstNameEditInput').val()}",
@@ -47,16 +54,121 @@ $(document).ready(function () {
       "role" : "${$('#roleEditInput').val()}",
       "isActive" : ${$('#isActiveEditInput').is(':checked')}
     }`;
+    console.log(user);
     ajaxSaveUserChanges('http://localhost:8080/user/edit', user);
     location.reload();
-  });
-
-  // when admin click for save user changes
-  $('#saveEditUser').click((event) => {
     $('#editUserModal').modal('hide');
   });
+  //------------------------------------------------------------------
 });
 
+// funcitons for Course
+// ajax request for getting users
+
+// jalali date picker picking date of courses
+let startDateInput = document.getElementById('startDateInput');
+jalaliDatepicker.startWatch();
+startDateInput.addEventListener('focus', (event) => {
+  jalaliDatepicker.show(startDateInput);
+});
+let endDateInput = document.getElementById('endDateInput');
+jalaliDatepicker.startWatch();
+endDateInput.addEventListener('focus', (event) => {
+  jalaliDatepicker.show(endDateInput);
+});
+
+let courses;
+function ajaxGetCoursesAndShow(url) {
+  $.ajax({
+    type: 'GET',
+    url: url,
+    success: function (response) {
+      courses = response;
+      $('#courseContainer').html('');
+      for (let courseIndex = 0; courseIndex < response.length; courseIndex++) {
+        const element = response[courseIndex];
+        let html = getShowCourseHTML(element);
+        $('#courseContainer').append(html);
+      }
+    },
+  });
+}
+
+// button click to show course details page
+function showCourseDetails(courseId) {
+  sessionStorage.setItem('courseId', courseId);
+  window.location.href = 'admin-course.html';
+}
+
+// button click event when we add course
+$('#addCourseButton').click((event) => {
+  event.preventDefault();
+  let courseTitleInput = $('#courseTitleInput').val();
+  let startDateInput = $('#startDateInput').val();
+  let endDateInput = $('#endDateInput').val();
+  if (courseTitleInput != '' && startDateInput != '' && endDateInput != '') {
+    let course = `{
+      "title": "${courseTitleInput}",
+      "startDate": "${startDateInput}",
+      "endDate": "${endDateInput}",
+      "adminUsername": "${sessionStorage.getItem('username')}"
+    }`;
+    ajaxForAddCourse(course);
+  } else {
+    alert('لطفا تمام فیلد ها را پر کنید!');
+  }
+});
+
+// Ajax for add a course
+function ajaxForAddCourse(course) {
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/course/save',
+    contentType: 'application/json',
+    data: course,
+    success: function (response) {
+      alert('دوره با موفقیت اضافه شد.');
+      location.reload();
+    },
+  });
+}
+
+// Ajax for getting teachers to show
+
+// Get HTML Strings
+// Get Course HTML
+function getShowCourseHTML(course) {
+  return `<div class="card mb-4" style="width: 18rem; justify-self: center">
+  <div class="card-body">
+    <div class="card-title d-flex align-items-center">
+      <div class="w-100 text-center">
+        <h5 class="mx-3 h5">${course.title}</h5>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="">
+        تاریخ شروع <i class="fas fa-long-arrow-alt-left mx-3"></i>
+      </p>
+      <p>${course.startDate}</p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="">
+        تاریخ پایان <i class="fas fa-long-arrow-alt-left mx-3"></i>
+      </p>
+      <p>${course.endDate}</p>
+    </div>
+    <button
+      class="btn btn-primary open-edit-user-modal my-3"
+      onclick="showCourseDetails(${course.id})"
+    >
+      <i class="fas fa-eye"></i> مشخصات کامل دوره
+    </button>
+  </div>
+</div>`;
+}
+
+// ------------------------------------------------------------------------
+// funcitons for User
 function ajaxSaveUserChanges(urlSave, user) {
   $.ajax({
     type: 'POST',
@@ -76,6 +188,7 @@ function ajaxGetUsersAndShow(url) {
     url: url,
     success: function (response) {
       $('#userContainer').html('');
+      users = response;
       for (let userIndex = 0; userIndex < response.length; userIndex++) {
         const element = response[userIndex];
         let html = getShowUserHTML(element);
@@ -84,9 +197,6 @@ function ajaxGetUsersAndShow(url) {
     },
   });
 }
-
-// when admin click for edit user
-function editUser(username) {}
 
 // html creator for showing users
 function getShowUserHTML(user) {
@@ -115,8 +225,8 @@ function getShowUserHTML(user) {
       <div class="d-flex justify-content-between w-100">
         <h5 class="mx-3">${user.firstName} ${user.lastName}</h5>
         <h5 class="mx-3 float-end"><i class="fas fa-${
-          user.gender == 'm' ? 'male' : 'female'
-        }"></i></h5>
+          user.gender == 'MALE' ? 'male' : 'female'
+        } fa-2x"></i></h5>
       </div>
     </div>
     <div class="d-flex">
@@ -124,7 +234,7 @@ function getShowUserHTML(user) {
       <p>${user.email}</p>
     </div>
     <div class="d-flex justify-content-between">
-      <h6>${user.role == 'STUDENT' ? 'دانشجو' : 'استاد'}</h6>
+      <h6 class="h5">${user.role == 'STUDENT' ? 'دانشجو' : 'استاد'}</h6>
       <button class="btn btn-primary open-edit-user-modal" onclick="editUser('${
         user.username
       }')" data-bs-toggle="modal" data-bs-target="#editUserModal"
@@ -135,9 +245,26 @@ function getShowUserHTML(user) {
       data-gender = '${user.gender}'
       data-role = '${user.role}'
       data-is_active = '${user.isActive}'
-        ><i class="fas fa-user-edit"></i
+        ><i class="fas fa-user-edit fa-lg"></i
       ></button>
     </div>
   </div>
 </div>`;
 }
+
+// -------------------------------------------------------------------------------------
+// functions for Navbar
+$('#showUsersItem').click((event) => {
+  $('#usersShowing').removeClass('d-none');
+  $('#courseShowing').addClass('d-none');
+});
+$('#showCoursesItem').click((event) => {
+  $('#usersShowing').addClass('d-none');
+  $('#courseShowing').removeClass('d-none');
+});
+$('#logoutItem').click((event) => {
+  if (confirm('آیا می خواهید از حساب خود خارج شوید؟')) {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  }
+});

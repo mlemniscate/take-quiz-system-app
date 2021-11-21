@@ -1,26 +1,62 @@
 package ir.maktabsharif.controller;
 
-import ir.maktabsharif.model.Teacher;
-import ir.maktabsharif.model.enums.Role;
-import ir.maktabsharif.model.enums.SignUpStatus;
+import ir.maktabsharif.base.web.rest.BaseRestFul;
+import ir.maktabsharif.controller.mapper.TeacherMapper;
+import ir.maktabsharif.domain.Teacher;
+import ir.maktabsharif.domain.enums.Role;
+import ir.maktabsharif.domain.enums.SignUpStatus;
 import ir.maktabsharif.service.TeacherService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import ir.maktabsharif.service.dto.TeacherDTO;
+import ir.maktabsharif.service.dto.extra.UserWithoutPasswordDTO;
+import javassist.NotFoundException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
-public class TeacherController {
+@RequestMapping("/teacher")
+@CrossOrigin
+public class TeacherController extends BaseRestFul<Teacher, TeacherDTO, Long, TeacherService, TeacherMapper> {
 
-    private final TeacherService service;
+    public TeacherController(TeacherService service, TeacherMapper mapper) {
+        super(service, mapper);
+    }
 
-    @PostMapping("/teacher/sign-up")
-    @CrossOrigin
+    @PostMapping("/sign-up")
     SignUpStatus newTeacher(@RequestBody Teacher newTeacher) {
         newTeacher.setRole(Role.TEACHER);
         return service.save(newTeacher);
+    }
+
+    @GetMapping("/get-by-username")
+    ResponseEntity<TeacherDTO> findByUsername(@RequestParam String username) throws NotFoundException {
+        return ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        service.findByUsername(username)
+                )
+        );
+    }
+
+    @GetMapping("/get-all")
+    List<UserWithoutPasswordDTO> getAllTeachers() {
+        List<Teacher> teachers = service.getAll();
+        List<UserWithoutPasswordDTO> userWithoutPasswordDTOS = new ArrayList<>();
+        teachers.forEach(teacher -> {
+            userWithoutPasswordDTOS.add(
+                    new UserWithoutPasswordDTO(
+                            teacher.getUsername(),
+                            teacher.getFirstName(),
+                            teacher.getLastName(),
+                            teacher.getEmail(),
+                            teacher.getGender(),
+                            teacher.getRole(),
+                            teacher.getIsActive()
+                    )
+            );
+        });
+        return userWithoutPasswordDTOS;
     }
 
 }

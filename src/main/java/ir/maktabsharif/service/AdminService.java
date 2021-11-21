@@ -1,4 +1,7 @@
 package ir.maktabsharif.service;
 
-public interface AdminService {
+import ir.maktabsharif.base.service.BaseService;
+import ir.maktabsharif.domain.Admin;
+
+public interface AdminService extends BaseService<Admin, Long> {
 }
