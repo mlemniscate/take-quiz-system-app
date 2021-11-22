@@ -20,6 +20,7 @@ public class Answer extends BaseEntity<Long> {
     public static final String SCORE = "score";
 
     @Column(name = ANSWER)
+    @Lob
     private String answer;
     @Column(name = SCORE)
     private Integer score;

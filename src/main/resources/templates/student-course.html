@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سیستم برگزاری آزمون آنلاین</title>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="../lib/jalali_data_picker/jalalidatepicker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/03f47c791c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-info">
+    <div style="height: 100%">
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-primary"
+        style="direction: rtl"
+      >
+        <div class="container">
+          <!-- Navbar Brand -->
+          <a class="navbar-brand" href="#">
+            <img
+              src="../static/img/pngegg.png"
+              width="30"
+              height="30"
+              class="d-inline-block align-top"
+              alt=""
+            />
+            سیستم آزمون آنلاین
+          </a>
+          <!-- Navbar Items -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a id="backItem" class="nav-link" href="#"
+                  ><i class="fas fa-arrow-right"></i> بازگشت به صفحه قبلی</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Showing -->
+      <div
+        id="courseShowing"
+        class="container mt-5 bg-secondary p-4 rounded"
+        style="direction: rtl"
+      >
+        <div id="searchBar">
+          <div class="row g-3">
+            <!-- Course -->
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="ps-5">
+                <p id="title" class="h3">عنوان دوره</p>
+              </div>
+              <div>
+                <small>تاریخ شروع: <span id="dateStart"></span></small><br />
+                <small>تاریخ پایان: &nbsp;<span id="dateEnd"></span></small>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="h5">آزمون های این دوره</p>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <!-- Quiz Showing Cards -->
+        <div id="quizContainer" class="d-grid course-container my-5"></div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Jalali Date Picker Scripts -->
+    <script
+      type="text/javascript"
+      src="../lib/jalali_data_picker/jalalidatepicker.min.js"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/student-course.js"></script>
+  </body>
+</html>

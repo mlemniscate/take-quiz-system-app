@@ -168,8 +168,7 @@ function deleteQuestion(questionId) {
 }
 
 // Ajax
-// get course and show it
-// ajax for get teacher
+// ajax for get questions
 function ajaxGetQuestion() {
   $.ajax({
     type: 'GET',

@@ -22,6 +22,8 @@ public class StudentQuiz extends BaseEntity<Long> {
 
     private Integer score;
 
+    private Long startDate;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

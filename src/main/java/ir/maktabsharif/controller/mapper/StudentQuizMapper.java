@@ -7,4 +7,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface StudentQuizMapper extends BaseMapper<StudentQuiz, StudentQuizDTO, Long> {
+
 }

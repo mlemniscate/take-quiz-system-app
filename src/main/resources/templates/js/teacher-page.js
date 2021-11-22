@@ -4,7 +4,7 @@ let teacher;
 // -------------------------------------------------------------------------------------
 // Page loads
 // Teacher loads
-ajaxGetTeacherByUsername();
+ajaxGetStudentByUsername();
 
 // Course loads
 ajaxGetCoursesAndShow();
@@ -29,7 +29,7 @@ function showCourseDetails(id) {
 }
 
 // ajax for get teacher
-function ajaxGetTeacherByUsername() {
+function ajaxGetStudentByUsername() {
   $.ajax({
     type: 'GET',
     url: `http://localhost:8080/teacher/get-by-username?username=${sessionStorage.getItem(

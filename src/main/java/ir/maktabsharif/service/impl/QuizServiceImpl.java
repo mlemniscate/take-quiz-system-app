@@ -8,11 +8,8 @@ import ir.maktabsharif.repository.StudentQuizRepository;
 import ir.maktabsharif.service.QuizService;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,24 +24,19 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
         this.studentQuizRepository = studentQuizRepository;
     }
 
+    // find all the StudentQuiz of a student by student id
     @Override
-    public List<Quiz> findAllStudentActiveQuizzes(Long id) {
-        List<StudentQuiz> studentQuizList = studentQuizRepository.findAllByStudent_Id(id);
-        List<Quiz> quizzes = new ArrayList<>();
-        studentQuizList.forEach(studentQuiz -> {
-            if(studentQuiz.getIsActive()) quizzes.add(studentQuiz.getQuiz());
-            });
-        return quizzes;
+    public List<StudentQuiz> findAllStudentQuiz(Long id) {
+        return studentQuizRepository.findAllByStudent_Id(id);
     }
 
+    // for starting the student quiz and return the quiz started time
     @Override
-    public LocalDateTime startStudentQuiz(Long studentId, Long quizId, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        LocalDateTime time =  (LocalDateTime) session.getAttribute("startQuizTime" + studentId + quizId);
-        Optional<Quiz> quizOptional = repository.findById(quizId);
-        if(time == null && quizOptional.isPresent()) {
-            session.setAttribute("startQuizTime" + studentId + quizId, LocalDateTime.now());
-            return LocalDateTime.now();
-        } else return time;
+    public void startStudentQuiz(Long studentId, Long quizId) {
+        Optional<StudentQuiz> studentQuizOptional = studentQuizRepository.findByStudentIdAndQuizId(studentId, quizId);
+        if(studentQuizOptional.isPresent()) {
+            studentQuizOptional.get().setStartDate(new Date().getTime());
+            studentQuizRepository.save(studentQuizOptional.get());
+        }
     }
 }

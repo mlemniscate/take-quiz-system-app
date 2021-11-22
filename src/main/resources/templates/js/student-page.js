@@ -22,9 +22,10 @@ $('#logoutItem').click((event) => {
 });
 
 // course details click event
-function showCourseDetails(id) {
-  sessionStorage.setItem('courseId', id);
-  sessionStorage.setItem('studentId', student.id);
+function showCourseDetails(course) {
+  console.log(course);
+  sessionStorage.setItem('course', JSON.stringify(course));
+  sessionStorage.setItem('student', JSON.stringify(student));
   window.location.href = 'student-course.html';
 }
 
@@ -47,7 +48,7 @@ function ajaxGetStudentByUsername() {
 function ajaxGetCoursesAndShow(url) {
   $.ajax({
     type: 'GET',
-    url: `http://localhost:8080/course/get-teacher-courses/${teacher.id}`,
+    url: `http://localhost:8080/course/all-student-courses/${student.id}`,
     async: false,
     success: function (response) {
       courses = response;
@@ -86,7 +87,7 @@ function getShowCourseHTML(course) {
     </div>
     <button
       class="btn btn-primary open-edit-user-modal my-3"
-      onclick="showCourseDetails(${course.id})"
+      onclick='showCourseDetails(${JSON.stringify(course)})'
     >
       <i class="fas fa-eye"></i> مشخصات کامل دوره
     </button>

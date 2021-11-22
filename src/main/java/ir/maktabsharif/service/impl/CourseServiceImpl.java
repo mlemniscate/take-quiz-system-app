@@ -101,7 +101,7 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepos
             Quiz quizSaved = quizRepository.save(quiz);
             if (courseOptional.isPresent()) {
                 courseOptional.get().getStudents().forEach(student ->
-                        studentQuizRepository.save(new StudentQuiz(true, null, quiz, student))
+                        studentQuizRepository.save(new StudentQuiz(true, null, null, quiz, student))
                 );
                 courseOptional.get().addQuiz(quizSaved);
                 return repository.save(courseOptional.get());
