@@ -39,4 +39,10 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
             studentQuizRepository.save(studentQuizOptional.get());
         }
     }
+
+    @Override
+    public void endStudentQuiz(StudentQuiz studentQuiz) {
+        studentQuiz.setIsActive(false);
+        studentQuizRepository.save(studentQuiz);
+    }
 }

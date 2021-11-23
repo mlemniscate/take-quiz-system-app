@@ -1,6 +1,7 @@
 let quiz = JSON.parse(sessionStorage.getItem('quiz'));
 let startDate = JSON.parse(sessionStorage.getItem('startDate'));
 let student = JSON.parse(sessionStorage.getItem('student'));
+let studentQuiz = JSON.parse(sessionStorage.getItem('studentQuiz'));
 let multiQuestions;
 let descQuestions;
 let questions = [];
@@ -11,6 +12,7 @@ let questionNumber = 0;
 // first time run
 // getting questions
 ajaxGetQuestion();
+ajaxGetAnswers();
 checkAndStartTimer();
 showQuestion();
 
@@ -19,16 +21,13 @@ showQuestion();
 $('#nextQuestion').click((event) => {
   if (questionNumber < questions.length - 1) {
     // take prev question answer
-    let answer = answers[questionNumber];
-    if (questions[questionNumber].hasOwnProperty('options'))
-      answer.answer = $('input[name="multiQuestionOptionRadio"]:checked').val();
-    else answer.answer = $('#descAnswer');
-
+    saveAnswer();
     questionNumber++;
     showQuestion();
     if (questionNumber == questions.length - 1)
       $('#finishQuiz').removeClass('d-none');
   }
+  console.log(answers);
 });
 
 // Prev question click
@@ -38,7 +37,33 @@ $('#prevQuestion').click((event) => {
     questionNumber--;
     showQuestion();
   }
+  console.log(answers);
 });
+
+// Finish quiz button listener
+$('#finishQuiz').click((event) => {
+  finishQuiz();
+});
+
+// Finish quiz
+function finishQuiz() {
+  saveAnswer();
+  for (let index = 0; index < answers.length; index++) {
+    const answer = answers[index];
+    const question = questions[index];
+    ajaxSaveAnswer(answer, question);
+  }
+}
+
+function saveAnswer() {
+  let answer = answers[questionNumber];
+  let question = questions[questionNumber];
+  if (question.hasOwnProperty('options'))
+    answer.answer = $('input[name="multiQuestionOptionRadio"]:checked').val();
+  else answer.answer = $('#descAnswer').val();
+  console.log(answer);
+  ajaxSaveAnswer(answer, question);
+}
 
 // Show
 // Show question
@@ -65,6 +90,7 @@ function showQuestion() {
 }
 
 function checkAndStartTimer() {
+  // if student start the quiz
   if (startDate == null) {
     ajaxQuizStart();
     time = quiz.time * 60 * 1000;
@@ -75,11 +101,13 @@ function checkAndStartTimer() {
       $('#time').html(minutes + ':' + seconds);
       // If the count down is over, write some text
       if (time <= 0) {
-        console.log('end');
+        finishQuiz();
         clearInterval(x);
       }
     }, 1000);
-  } else {
+  }
+  // if student before stated the quiz and keep going
+  else {
     if (new Date().getTime() - startDate < quiz.time * 60 * 1000) {
       time = quiz.time * 60 * 1000 - (new Date().getTime() - startDate);
       var x = setInterval(function () {
@@ -89,12 +117,12 @@ function checkAndStartTimer() {
         $('#time').html(minutes + ':' + seconds);
         // If the count down is over, write some text
         if (time <= 0) {
-          console.log('end');
+          finishQuiz();
           clearInterval(x);
         }
       }, 1000);
     } else {
-      // implement the end point
+      finishQuiz();
     }
   }
 }
@@ -121,18 +149,45 @@ function ajaxGetQuestion() {
     },
   });
   for (let i = 0; i < questions.length; i++) {
-    let answer = { answer: undefined, questionsId: questions[i].id };
+    let answer = { answer: undefined };
     answers.push(answer);
   }
-  console.log(answers);
 }
 
 // Ajax for getting started quiz and get the date of quiz started
-// /quiz/start-student-quiz/{studentId}/{quizId}
 function ajaxQuizStart() {
   $.ajax({
     type: 'GET',
     url: `http://localhost:8080/quiz/start-student-quiz/${student.id}/${quiz.id}`,
+  });
+}
+
+// Ajax for updating or saving answer
+function ajaxSaveAnswer(answer, question) {
+  $.ajax({
+    type: 'POST',
+    url: `http://localhost:8080/answer/${question.id}/${student.id}/${quiz.id}`,
+    contentType: 'application/json',
+    data: JSON.stringify(answer),
+    async: false,
+    success: function (response) {
+      answers[questionNumber] = response;
+    },
+  });
+}
+
+// Ajax for getting answered questions
+function ajaxGetAnswers() {
+  $.ajax({
+    type: 'GET',
+    url: `http://localhost:8080/answer/${student.id}/${quiz.id}`,
+    async: false,
+    success: function (response) {
+      for (let i = 0; i < response.length; i++) {
+        const answer = response[i];
+        answers[i] = answer;
+      }
+    },
   });
 }
 

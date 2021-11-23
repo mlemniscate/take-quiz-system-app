@@ -44,7 +44,8 @@ function showQuizzes() {
         studentQuiz.quiz,
         studentQuiz.isActive,
         studentQuiz.score,
-        studentQuiz.startDate
+        studentQuiz.startDate,
+        quizIndex
       )
     );
   }
@@ -53,12 +54,16 @@ function showQuizzes() {
 // go to quiz questions
 function startQuiz(obj) {
   sessionStorage.setItem('quiz', JSON.stringify(obj.quiz));
+  sessionStorage.setItem(
+    'studentQuiz',
+    JSON.stringify(studentQuizzes[obj.quizIndex])
+  );
   sessionStorage.setItem('startDate', JSON.stringify(obj.startDate));
   window.location.href = 'student-quiz.html';
 }
 
 // Get HTML
-function getQuizHTML(quiz, isActive, score, startDate) {
+function getQuizHTML(quiz, isActive, score, startDate, quizIndex) {
   return `<div class="card mb-4" style="width: 18rem; justify-self: center">
   <div class="card-body">
     <div class="card-title d-flex">
@@ -79,7 +84,7 @@ function getQuizHTML(quiz, isActive, score, startDate) {
     </div>
     <button 
       class="btn btn-primary open-edit-user-modal my-3 w-100"
-      onclick='startQuiz(${JSON.stringify({ quiz, startDate })})'
+      onclick='startQuiz(${JSON.stringify({ quiz, startDate, quizIndex })})'
       ${isActive ? '' : 'disabled'}
     >
       <i class="fas fa-edit"></i> شروع آزمون

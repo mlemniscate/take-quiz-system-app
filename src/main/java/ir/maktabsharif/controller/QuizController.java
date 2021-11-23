@@ -42,5 +42,11 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/student-quiz-finish")
+    public ResponseEntity<Void> end(@RequestBody StudentQuizDTO studentQuizDTO) {
+        service.endStudentQuiz(studentQuizMapper.convertDTOToEntity(studentQuizDTO));
+        return ResponseEntity.ok().build();
+    }
+
 
 }
