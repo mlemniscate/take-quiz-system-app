@@ -37,11 +37,11 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
     // request to start the quiz and get the started time
     // if quiz started before this method give you the last started time
     @GetMapping("/start-student-quiz/{studentId}/{quizId}")
-    public ResponseEntity<Void> start(@PathVariable Long studentId, @PathVariable Long quizId) {
-        service.startStudentQuiz(studentId, quizId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Long> start(@PathVariable Long studentId, @PathVariable Long quizId) {
+        return ResponseEntity.ok(service.startStudentQuiz(studentId, quizId));
     }
 
+    // request to finish student quiz and set isActive of quiz to false
     @PutMapping("/student-quiz-finish")
     public ResponseEntity<Void> end(@RequestBody StudentQuizDTO studentQuizDTO) {
         service.endStudentQuiz(studentQuizMapper.convertDTOToEntity(studentQuizDTO));

@@ -9,7 +9,7 @@ import java.util.List;
 public interface QuizService extends BaseService<Quiz, Long> {
     List<StudentQuiz> findAllStudentQuiz(Long id);
 
-    void startStudentQuiz(Long studentId, Long quizId);
+    Long startStudentQuiz(Long studentId, Long quizId);
 
     void endStudentQuiz(StudentQuiz convertDTOToEntity);
 }

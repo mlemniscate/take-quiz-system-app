@@ -2,6 +2,7 @@ let quiz = JSON.parse(sessionStorage.getItem('quiz'));
 let startDate = JSON.parse(sessionStorage.getItem('startDate'));
 let student = JSON.parse(sessionStorage.getItem('student'));
 let studentQuiz = JSON.parse(sessionStorage.getItem('studentQuiz'));
+studentQuiz.isActive = false;
 let multiQuestions;
 let descQuestions;
 let questions = [];
@@ -48,16 +49,14 @@ $('#finishQuiz').click((event) => {
 // Finish quiz
 function finishQuiz() {
   saveAnswer();
-  for (let index = 0; index < answers.length; index++) {
-    const answer = answers[index];
-    const question = questions[index];
-    ajaxSaveAnswer(answer, question);
-  }
+  ajaxToEndQuiz();
 }
 
 function saveAnswer() {
   let answer = answers[questionNumber];
   let question = questions[questionNumber];
+  console.log(answer);
+  console.log(question);
   if (question.hasOwnProperty('options'))
     answer.answer = $('input[name="multiQuestionOptionRadio"]:checked').val();
   else answer.answer = $('#descAnswer').val();
@@ -187,6 +186,20 @@ function ajaxGetAnswers() {
         const answer = response[i];
         answers[i] = answer;
       }
+    },
+  });
+}
+
+// Ajax for finish quiz and set isActive false
+function ajaxToEndQuiz() {
+  $.ajax({
+    type: 'PUT',
+    url: `http://localhost:8080/quiz/student-quiz-finish`,
+    contentType: 'application/json',
+    data: JSON.stringify(studentQuiz),
+    async: false,
+    success: function (response) {
+      answers[questionNumber] = response;
     },
   });
 }

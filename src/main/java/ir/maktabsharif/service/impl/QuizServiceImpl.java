@@ -32,12 +32,13 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
 
     // for starting the student quiz and return the quiz started time
     @Override
-    public void startStudentQuiz(Long studentId, Long quizId) {
+    public Long startStudentQuiz(Long studentId, Long quizId) {
         Optional<StudentQuiz> studentQuizOptional = studentQuizRepository.findByStudentIdAndQuizId(studentId, quizId);
         if(studentQuizOptional.isPresent()) {
             studentQuizOptional.get().setStartDate(new Date().getTime());
             studentQuizRepository.save(studentQuizOptional.get());
         }
+        return new Date().getTime();
     }
 
     @Override
