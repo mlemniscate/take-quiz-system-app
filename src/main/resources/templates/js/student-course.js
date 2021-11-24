@@ -37,17 +37,22 @@ function showCourse() {
 // show quizzes
 function showQuizzes() {
   $('#quizContainer').html('');
-  for (let quizIndex = 0; quizIndex < studentQuizzes.length; quizIndex++) {
-    const studentQuiz = studentQuizzes[quizIndex];
-    $('#quizContainer').append(
-      getQuizHTML(
-        studentQuiz.quiz,
-        studentQuiz.isActive,
-        studentQuiz.score,
-        studentQuiz.startDate,
-        quizIndex
-      )
-    );
+  for (let i = 0; i < studentQuizzes.length; i++) {
+    const studentQuiz = studentQuizzes[i];
+    for (let j = 0; j < course.quizzes.length; j++) {
+      const quiz = course.quizzes[j];
+      if (quiz.id == studentQuiz.quiz.id) {
+        $('#quizContainer').append(
+          getQuizHTML(
+            studentQuiz.quiz,
+            studentQuiz.isActive,
+            studentQuiz.score,
+            studentQuiz.startDate,
+            i
+          )
+        );
+      }
+    }
   }
 }
 

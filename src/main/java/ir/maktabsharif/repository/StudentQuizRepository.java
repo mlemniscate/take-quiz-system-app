@@ -12,4 +12,5 @@ public interface StudentQuizRepository extends JpaRepository<StudentQuiz, Long> 
 
     Optional<StudentQuiz> findByStudentIdAndQuizId(Long studentId, Long quizId);
 
+    List<StudentQuiz> findAllByQuizIdAndAndIsActiveFalse(Long quizId);
 }

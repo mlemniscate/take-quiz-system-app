@@ -9,4 +9,6 @@ public interface AnswerService extends BaseService<Answer, Long> {
     Answer saveQuestionAnswer(Answer answer, Long questionId, Long studentId, Long quizId);
 
     List<Answer> findAllQuizAnswersByStudent(Long studentId, Long quizId);
+
+    void modifyStudentQuiz(Long studentId, Long quizId);
 }

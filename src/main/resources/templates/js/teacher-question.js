@@ -35,6 +35,11 @@ $('#addOptionButton').click((event) => {
   $('#optionsContainer').append(getOptionHTML(optionNumberCounter++));
 });
 
+// back
+$('#backItem').click((event) => {
+  window.location.href = 'teacher-course.html';
+});
+
 // save multi option question and add to quiz questions
 $('#multiQuestionSaveButton').click((event) => {
   let optionElemens = $('#optionsContainer :input[type=text]');

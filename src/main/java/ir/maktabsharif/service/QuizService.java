@@ -12,4 +12,6 @@ public interface QuizService extends BaseService<Quiz, Long> {
     Long startStudentQuiz(Long studentId, Long quizId);
 
     void endStudentQuiz(StudentQuiz convertDTOToEntity);
+
+    List<StudentQuiz> findAllStudentQuizOfGivenQuizzes(Long quizId);
 }

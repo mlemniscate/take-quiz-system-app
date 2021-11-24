@@ -52,50 +52,15 @@
         </div>
       </nav>
 
-      <!-- Showing -->
-      <div>
-        <!-- Question Showing Cards -->
-        <div
-          class="course-container p-4 my-5 bg-secondary m-auto rounded"
-          style="height: 600px; width: 1000px; direction: rtl"
-        >
-          <div class="m-auto w-100 d-flex justify-content-between">
-            <div>
-              <button id="nextQuestion" class="btn btn-primary">
-                <i class="fas fa-arrow-right"></i> سوال بعدی
-              </button>
-              <button id="prevQuestion" class="btn btn-primary">
-                سوال قبلی <i class="fas fa-arrow-left"></i>
-              </button>
-            </div>
-            <p class="bg-danger text-white rounded p-2">
-              زمان باقی مانده <span id="time">00:00</span>
-            </p>
-          </div>
-          <div id="questionContainer" class="mt-5">
-            <div id="questionCard" class="card mb-4">
-              <div class="card-body">
-                <div class="card-title d-flex justify-content-between">
-                  <p id="questionText" class="mx-3 h5">سوال</p>
-                  <p id="score" class="mx-3">نمره</p>
-                </div>
-                <div class="d-flex lead"></div>
-                <div id="option"></div>
-                <textarea
-                  name=""
-                  id="descAnswer"
-                  class="w-100 lead p-2 d-none"
-                  rows="8"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <button id="finishQuiz" class="btn btn-primary d-none">
-            اتمام آزمون و ارسال
-          </button>
-        </div>
+      <!-- Course Showing -->
+      <div
+        id="courseShowing"
+        class="container mt-5 bg-secondary p-4 rounded"
+        style="direction: rtl"
+      >
+      <p id="showMessage"></p>
       </div>
-    </div>
+
 
     <!-- Scripts -->
     <!-- Jalali Date Picker Scripts -->
@@ -112,6 +77,6 @@
       src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/student-quiz.js"></script>
+    <script src="js/student-finish-quiz.js"></script>
   </body>
 </html>

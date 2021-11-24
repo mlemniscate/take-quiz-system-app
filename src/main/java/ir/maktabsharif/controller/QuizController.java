@@ -48,5 +48,15 @@ public class QuizController extends BaseRestFul<Quiz, QuizDTO, Long, QuizService
         return ResponseEntity.ok().build();
     }
 
+    // find all the StudentQuizzes that give an exam
+    @GetMapping("/all-student-quizzes/{quizId}")
+    public ResponseEntity<List<StudentQuizDTO>> findAllStudentQuiz(@PathVariable Long quizId) {
+        return ResponseEntity.ok(
+                studentQuizMapper.convertListEntityToDTO(
+                        service.findAllStudentQuizOfGivenQuizzes(quizId)
+                )
+        );
+    }
+
 
 }

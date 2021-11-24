@@ -2,10 +2,7 @@ package ir.maktabsharif.service.impl;
 
 import ir.maktabsharif.base.service.impl.BaseServiceImpl;
 import ir.maktabsharif.domain.*;
-import ir.maktabsharif.repository.AnswerRepository;
-import ir.maktabsharif.repository.BaseQuestionRepository;
-import ir.maktabsharif.repository.QuizRepository;
-import ir.maktabsharif.repository.StudentRepository;
+import ir.maktabsharif.repository.*;
 import ir.maktabsharif.service.AnswerService;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +15,14 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepos
     private final BaseQuestionRepository baseQuestionRepository;
     private final StudentRepository studentRepository;
     private final QuizRepository quizRepository;
+    private final QuizQuestionRepository quizQuestionRepository;
 
-    public AnswerServiceImpl(AnswerRepository repository, BaseQuestionRepository baseQuestionRepository, StudentRepository studentRepository, QuizRepository quizRepository) {
+    public AnswerServiceImpl(AnswerRepository repository, BaseQuestionRepository baseQuestionRepository, StudentRepository studentRepository, QuizRepository quizRepository, QuizQuestionRepository quizQuestionRepository) {
         super(repository);
         this.baseQuestionRepository = baseQuestionRepository;
         this.studentRepository = studentRepository;
         this.quizRepository = quizRepository;
+        this.quizQuestionRepository = quizQuestionRepository;
     }
 
     @Override
@@ -44,5 +43,12 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepos
     @Override
     public List<Answer> findAllQuizAnswersByStudent(Long studentId, Long quizId) {
        return repository.findAllByStudentIdAndQuizId(studentId, quizId);
+    }
+
+    @Override
+    public void modifyStudentQuiz(Long studentId, Long quizId) {
+        List<Answer> answerList = repository.findAllByStudentIdAndQuizId(studentId, quizId);
+        List<QuizQuestion> quizQuestionList = quizQuestionRepository.findAllByQuizId(quizId);
+
     }
 }

@@ -43,13 +43,21 @@ $('#prevQuestion').click((event) => {
 
 // Finish quiz button listener
 $('#finishQuiz').click((event) => {
-  finishQuiz();
+  finishQuiz(
+    'آزمون شما با موفقیت پایان یافته و ثبت شد. منتظر اصلاح و نمرات باشید. از صبر و شکیبایی شما متشکریم.'
+  );
+});
+
+$('#backItem').click((event) => {
+  window.location.href = 'student-course.html';
 });
 
 // Finish quiz
-function finishQuiz() {
+function finishQuiz(endQuizMessage) {
   saveAnswer();
   ajaxToEndQuiz();
+  sessionStorage.setItem('endQuizMessage', endQuizMessage);
+  window.location.href = 'student-finish-quiz.html';
 }
 
 function saveAnswer() {
@@ -100,7 +108,9 @@ function checkAndStartTimer() {
       $('#time').html(minutes + ':' + seconds);
       // If the count down is over, write some text
       if (time <= 0) {
-        finishQuiz();
+        finishQuiz(
+          'زمان آزمون شما پایان یافت و ثبت شد. منتظر اصلاح و نمرات باشید. از صبر و شکیبایی شما متشکریم.'
+        );
         clearInterval(x);
       }
     }, 1000);
@@ -116,12 +126,16 @@ function checkAndStartTimer() {
         $('#time').html(minutes + ':' + seconds);
         // If the count down is over, write some text
         if (time <= 0) {
-          finishQuiz();
+          finishQuiz(
+            'زمان آزمون شما پایان یافت و ثبت شد. منتظر اصلاح و نمرات باشید. از صبر و شکیبایی شما متشکریم.'
+          );
           clearInterval(x);
         }
       }, 1000);
     } else {
-      finishQuiz();
+      finishQuiz(
+        'زمان آزمون شما پایان یافت و ثبت شد. منتظر اصلاح و نمرات باشید. از صبر و شکیبایی شما متشکریم.'
+      );
     }
   }
 }

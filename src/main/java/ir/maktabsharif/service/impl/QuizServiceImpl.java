@@ -46,4 +46,10 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
         studentQuiz.setIsActive(false);
         studentQuizRepository.save(studentQuiz);
     }
+
+    // getting all the StudentQuizzes that given by students
+    @Override
+    public List<StudentQuiz> findAllStudentQuizOfGivenQuizzes(Long quizId) {
+        return studentQuizRepository.findAllByQuizIdAndAndIsActiveFalse(quizId);
+    }
 }
