@@ -41,6 +41,7 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz, Long, QuizRepository>
         return new Date().getTime();
     }
 
+    // request to end student quiz
     @Override
     public void endStudentQuiz(StudentQuiz studentQuiz) {
         studentQuiz.setIsActive(false);

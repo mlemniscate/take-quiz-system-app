@@ -47,6 +47,7 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepos
        return repository.findAllByStudentIdAndQuizId(studentId, quizId);
     }
 
+    // correct student quiz multi question answers and save the score
     @Override
     public void modifyStudentQuiz(Long studentId, Long quizId) {
         List<Answer> answerList = repository.findAllByStudentIdAndQuizId(studentId, quizId);
@@ -61,4 +62,6 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepos
         }
         answerList.forEach(repository::save);
     }
+
+
 }
