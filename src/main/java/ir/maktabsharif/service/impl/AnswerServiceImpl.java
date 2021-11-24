@@ -13,13 +13,15 @@ import java.util.Optional;
 public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepository> implements AnswerService {
 
     private final BaseQuestionRepository baseQuestionRepository;
+    private final MultiChoiceQuestionRepository multiChoiceQuestionRepository;
     private final StudentRepository studentRepository;
     private final QuizRepository quizRepository;
     private final QuizQuestionRepository quizQuestionRepository;
 
-    public AnswerServiceImpl(AnswerRepository repository, BaseQuestionRepository baseQuestionRepository, StudentRepository studentRepository, QuizRepository quizRepository, QuizQuestionRepository quizQuestionRepository) {
+    public AnswerServiceImpl(AnswerRepository repository, BaseQuestionRepository baseQuestionRepository, MultiChoiceQuestionRepository multiChoiceQuestionRepository, StudentRepository studentRepository, QuizRepository quizRepository, QuizQuestionRepository quizQuestionRepository) {
         super(repository);
         this.baseQuestionRepository = baseQuestionRepository;
+        this.multiChoiceQuestionRepository = multiChoiceQuestionRepository;
         this.studentRepository = studentRepository;
         this.quizRepository = quizRepository;
         this.quizQuestionRepository = quizQuestionRepository;
@@ -49,6 +51,14 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, Long, AnswerRepos
     public void modifyStudentQuiz(Long studentId, Long quizId) {
         List<Answer> answerList = repository.findAllByStudentIdAndQuizId(studentId, quizId);
         List<QuizQuestion> quizQuestionList = quizQuestionRepository.findAllByQuizId(quizId);
-
+        for (int i = 0; i < answerList.size(); i++) {
+            if(quizQuestionList.get(i).getQuestion() instanceof MultiChoiceQuestion) {
+                MultiChoiceQuestion question = (MultiChoiceQuestion) quizQuestionList.get(i).getQuestion();
+                if(Integer.parseInt(answerList.get(i).getAnswer()) == (question.getTrueOption())) {
+                    answerList.get(i).setScore(quizQuestionList.get(i).getScore());
+                } else answerList.get(i).setScore(0);
+            }
+        }
+        answerList.forEach(repository::save);
     }
 }

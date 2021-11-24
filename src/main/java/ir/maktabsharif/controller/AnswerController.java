@@ -47,10 +47,12 @@ public class AnswerController extends BaseRestFul<Answer, AnswerDTO, Long, Answe
     }
 
     // modify all the multi questions of an student and set the score of them
-    @PostMapping("/multi-modification/{studentId}/{quizId}")
+    @GetMapping("/multi-modification/{studentId}/{quizId}")
     public ResponseEntity<Void> modifyStudentQuiz(@PathVariable Long studentId,
                                                   @PathVariable Long quizId) {
         service.modifyStudentQuiz(studentId, quizId);
         return ResponseEntity.ok().build();
     }
+
+
 }
